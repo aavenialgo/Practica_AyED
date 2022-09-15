@@ -1,2 +1,2 @@
 # Practica_AyED
-Este es el repositorio para la practica para Algoritmo y Estructura de Datos
+Este es el repositorio de la practica para la asignatura Algoritmos y Estructuras de Datos
