@@ -15,7 +15,8 @@ class ListaDobleEnlazada:
     
         
     
-    def estaVacia(self):
+    def esta_vacia(self):
+        """ devuelve True si la lista esta vacía"""
         return self._cabeza == None
     
     
@@ -28,10 +29,10 @@ class ListaDobleEnlazada:
             self.cola = temp
         else:
         
-            # temp = Nodo(item)
             temp.siguiente = self.cabeza
             self.cabeza.anterior = temp
             self.cabeza= temp
+            
         self.tamanio+=1 
         
     def anexar(self, item):
@@ -52,20 +53,43 @@ class ListaDobleEnlazada:
         
     
     def insertar(self, pos, item):
-        """Agrega un elemento en la posicion "pos" """
-        
+        """Agrega un nuevo itema a la lista en la posicion 'pos' """
         nuevo = Nodo(item)
-        temp = self.cabeza
-        for it in range(pos-1):
-            temp = temp.siguiente
-        nuevo.siguiente = temp.siguiente
-        temp.siguiente.anterior = nuevo
-        temp.siguiente = nuevo
-        nuevo.anterior = temp 
+        temp=self.cabeza
+        if self.tamanio == 0:
+            self.cabeza = nuevo
+            self.cola = nuevo
+            
+        elif pos == (self.tamanio-1) :
+            self.cola.siguiente = nuevo
+            nuevo.anterior = self.cola
+            self.cola = nuevo
+            
+        elif pos == 0:
+            nuevo.siguiente = self.cabeza
+            self.cabeza.anterior = nuevo
+            self.cabeza= nuevo
+            
+        else:
+            for it in range(pos-1):
+                temp = temp.siguiente
+            
+            # temp.siguiente = self.cabeza
+            # self.cabeza.anterior = temp
+            # self.cabeza= temp
+            nuevo.siguiente = temp.siguiente
+            temp.siguiente.anterior = nuevo
+            temp.siguiente = nuevo
+            nuevo.anterior = temp 
+            
         self.tamanio +=1
+
         
     
     def extraer(self, pos ):
+        """elimina y devuelve el ítem en "posición". Si no se 
+        indica el parámetro posición, se elimina y devuelve el 
+        último elemento de la lista """
         dato = 0
         
         if pos == 0:
@@ -85,9 +109,15 @@ class ListaDobleEnlazada:
             temp.siguiente.anterior = temp.anterior
         self.tamanio-=1
         return dato
+    
+    def copiar(self):
+        """Realiza una copia de la lista elemento a elemento y
+        devuelve una copia """
+        pass
            
     def concatenar(self,p_lista):
-        """Concatena la lista que se pasa por parametro a la lista actual """
+        """Concatena al final la lista que se pasa por parametro a
+        la lista actual """
         if  p_lista.tamanio != 0:
             self.cola = p_lista.cabeza
             self.tamanio = self.tamanio + p_lista.tamanio
@@ -197,48 +227,68 @@ class Nodo:
         
 if __name__ == '__main__':
     lista2= ListaDobleEnlazada()
-    lista2.agregar(10)
-    lista2.agregar(20)
-    lista2.agregar(40)
-    
+    lista2.agregar(0)
     print(lista2)
+    print("tamanio1",lista2.tamanio)
 
-    print("\nInserto el valor 30 en la pos 1")
-    lista2.insertar(1,30)
+    lista2.insertar(0,10)
     print(lista2)
-    
-    print("\nagrego el valor 50")
-    lista2.agregar(50)
-    print(lista2)
-    
-    print("\nextraigo el elemento 4")
-    lista2.extraer(4)
-    print (lista2)
-    
-    print("\nextraigo el primer elemento\n")
-    lista2.extraer(0)
-    print (lista2)
+    print("tamanio2",lista2.tamanio)
 
-    print ("\nextraigo el ultimo elemento")
-    lista2.extraer(lista2.tamanio-1)
-    print (lista2)
-    print()
-    
-    print("anexo 12")
-    lista2.anexar(12)
+    lista2.insertar(1,20)
     print(lista2)
     
-    lista2.anexar(8)
-    print(lista2)
+    print("tamanio3",lista2.tamanio)
+
+    lista2.insertar(2,30)
+
+
+    # lista2.agregar(10)
+    # lista2.agregar(20)
+    # lista2.agregar(40)
     
-    lista2.anexar(9)
     print(lista2)
-    
-    print()
-    print("agrego")
-    lista2.agregar(67)
+    print("tamanio4",lista2.tamanio)
+
+    lista2.insertar(lista2.tamanio-1,31)
+    lista2.insertar(lista2.tamanio-1,32)
     
     print(lista2)
+    print("tamanio6",lista2.tamanio)
+
+    
+    # print("\nagrego el valor 50")
+    # lista2.agregar(50)
+    # print(lista2)
+    
+    # print("\nextraigo el elemento 4")
+    # lista2.extraer(4)
+    # print (lista2)
+    
+    # print("\nextraigo el primer elemento\n")
+    # lista2.extraer(0)
+    # print (lista2)
+
+    # print ("\nextraigo el ultimo elemento")
+    # lista2.extraer(lista2.tamanio-1)
+    # print (lista2)
+    # print()
+    
+    # print("anexo 12")
+    # lista2.anexar(12)
+    # print(lista2)
+    
+    # lista2.anexar(8)
+    # print(lista2)
+    
+    # lista2.anexar(9)
+    # print(lista2)
+    
+    # print()
+    # print("agrego")
+    # lista2.agregar(67)
+    
+    # print(lista2)
     
     # print("\nordeno la lista")
     

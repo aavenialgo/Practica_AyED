@@ -45,39 +45,42 @@ class Test_LDE(unittest.TestCase):
             self.assertEqual(nodo.dato, None)
             
     
-    # def test_agregar(self):
-    #     """
-    #     pruebo que al agregar elementos al inicio de la lista
-    #     la misma tiene tamaño correcto y se llena correctamente      
-    #     """
-    #     lista_aux = []
-    #     for _ in range(self.n_elementos):
-    #         item = random.randint(-self.n_elementos//2, self.n_elementos//2)
-    #         lista_aux.insert(0,item)
-    #         self.lde_1.agregar(item)
+    def test_agregar(self):
+        """
+        pruebo que al agregar elementos al inicio de la lista
+        la misma tiene tamaño correcto y se llena correctamente      
+        """
+        lista_aux = []
+        for _ in range(self.n_elementos):
+            item = random.randint(-self.n_elementos//2, self.n_elementos//2)
+            lista_aux.insert(0,item)
+            self.lde_1.agregar(item)
         
-    #     self.assertEqual(self.lde_1.tamanio, self.n_elementos)
+        self.assertEqual(self.lde_1.tamanio, self.n_elementos)
         
-    #     for ind,elem in enumerate(self.lde_1):
-    #         self.assertEqual(elem.dato, lista_aux[ind])
+        for ind,elem in enumerate(self.lde_1):
+            self.assertEqual(elem.dato, lista_aux[ind])
     
-    # def test_anexar(self):
-    #     """
-    #     pruebo que al anexar elementos al final de la lista
-    #     la misma tiene tamaño correcto y se llena correctamente
-    #     """
-    #     lista_aux = []
-    #     for _ in range(self.n_elementos):
-    #         item = random.randint(-self.n_elementos//2, self.n_elementos//2)
-    #         lista_aux.append(item)
-    #         self.lde_1.anexar(item)
+    def test_anexar(self):
+        """
+        pruebo que al anexar elementos al final de la lista
+        la misma tiene tamaño correcto y se llena correctamente
+        """
+        lista_aux = []
+        for _ in range(self.n_elementos):
+            item = random.randint(-self.n_elementos//2, self.n_elementos//2)
+            lista_aux.append(item)
+            self.lde_1.anexar(item)
             
-    #     self.assertEqual(self.lde_1.tamanio, self.n_elementos)
+        self.assertEqual(self.lde_1.tamanio, self.n_elementos)
         
-    #     for ind,elem in enumerate(self.lde_1):
-    #         self.assertEqual(elem.dato, lista_aux[ind])
+        for ind,elem in enumerate(self.lde_1):
+            self.assertEqual(elem.dato, lista_aux[ind])
             
+    
     # def test_insertar_extremos(self):
+        #TODO: si funciona insertar al final pero no en el test
+
     #     """
     #     inserto ítems en los extremos de la LDE, compruebo 
     #     tamaño correcto y su valor.
@@ -87,6 +90,7 @@ class Test_LDE(unittest.TestCase):
     #     self.lde_2.insertar(0, 120)
     #     self.n_elementos += 1
     #     self.assertEqual(self.lde_2.tamanio, self.n_elementos)
+    #     print(self.lde_2)
     #     self.assertEqual(self.lde_2.cabeza.dato, 120)
         
     #     """inserto 2do item en la última posición"""
@@ -102,25 +106,25 @@ class Test_LDE(unittest.TestCase):
     #     self.assertEqual(valor, 180)
         
     
-    # def test_insertar_interior(self):
-    #     """
-    #     pruebo insertar un ítem en una posición aleatoria
-    #     de la LDE y compruebo que el elemento es insertado
-    #     """        
-    #     print(f"\nPosición aleatoria donde se inserta: {self.posicion}")
+    def test_insertar_interior(self):
+        """
+        pruebo insertar un ítem en una posición aleatoria
+        de la LDE y compruebo que el elemento es insertado
+        """        
+        print(f"\nPosición aleatoria donde se inserta: {self.posicion}")
         
-    #     self.lde_2.insertar(self.posicion, 250)
-    #     self.n_elementos += 1
-    #     self.assertEqual(self.lde_2.tamanio, self.n_elementos)
+        self.lde_2.insertar(self.posicion, 250)
+        self.n_elementos += 1
+        self.assertEqual(self.lde_2.tamanio, self.n_elementos)
         
-    #     contador = 0
-    #     nodo_actual = self.lde_2.cabeza
-    #     while nodo_actual and contador != self.posicion:            
-    #         contador += 1
-    #         nodo_actual = nodo_actual.siguiente 
-    #         valor = nodo_actual.dato 
+        contador = 0
+        nodo_actual = self.lde_2.cabeza
+        while nodo_actual and contador != self.posicion:            
+            contador += 1
+            nodo_actual = nodo_actual.siguiente 
+            valor = nodo_actual.dato 
             
-    #     self.assertEqual(valor, 250)
+        self.assertEqual(valor, 250)
     
     # def test_excepciones_insertar(self):
     #     """
