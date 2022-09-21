@@ -293,22 +293,22 @@ class Test_LDE(unittest.TestCase):
     #         self.assertEqual(self.lista_aux_3[i], nodo.dato)
             
     
-    # def test_concatenar(self):
-    #     """
-    #     Comparo elemento a elemento de dos listas concatenadas:
-    #     una lista de Python obtenida con el operador "+" y otra LDE con
-    #     el método concatenar().
-    #     Comparo tamaños de ambas listas y verifico que sean iguales.
+    def test_concatenar(self):
+        """
+        Comparo elemento a elemento de dos listas concatenadas:
+        una lista de Python obtenida con el operador "+" y otra LDE con
+        el método concatenar().
+        Comparo tamaños de ambas listas y verifico que sean iguales.
         
-    #     """        
-    #     lista_concatenada1 = self.lista_aux_3 + self.lista_aux_2
-    #     lista_concatenada2 = self.lde_3.concatenar(self.lde_2)
+        """        
+        lista_concatenada1 = self.lista_aux_3 + self.lista_aux_2
+        lista_concatenada2 = self.lde_3.concatenar(self.lde_2)
         
-    #     for i,nodo in enumerate(lista_concatenada2):
+        for i,nodo in enumerate(lista_concatenada2):
             
-    #         self.assertEqual(lista_concatenada1[i], nodo.dato)
+            self.assertEqual(lista_concatenada1[i], nodo.dato)
             
-    #     self.assertEqual(len(lista_concatenada1), lista_concatenada2.tamanio)
+        self.assertEqual(len(lista_concatenada1), lista_concatenada2.tamanio)
                         
     
 if __name__ == "__main__":

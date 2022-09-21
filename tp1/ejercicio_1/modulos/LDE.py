@@ -92,9 +92,9 @@ class ListaDobleEnlazada:
     
     def extraer(self, pos=None):
         """elimina y devuelve el ítem en "posición". Si no se 
-        indica el parámetro posición, se elimina y devuelve el 
-        último elemento de la lista, el parametro -1 devuelve el ultimo 
-        elemento, cualquier otro valor negativo lanzara una exception"""
+        indica el parámetro posición o se ingresa -1, se elimina 
+        y devuelve el último elemento de la lista, cualquier otro
+        valor negativo lanzara una exception"""
         dato = 0
 
         if pos == None or pos == -1:
@@ -112,7 +112,7 @@ class ListaDobleEnlazada:
             self.cola.siguiente = None
         else:
             temp = self.cabeza
-            for it in range(pos-1):
+            for it in range(pos):
                 temp = temp.siguiente
             dato = temp
             temp.anterior = temp.siguiente
@@ -125,17 +125,11 @@ class ListaDobleEnlazada:
         devuelve una copia """
         pass
            
-    def concatenar(self,p_lista):
-        """Concatena al final la lista que se pasa por parametro a
-        la lista actual """
-        if  p_lista.tamanio != 0:
-            self.cola = p_lista.cabeza
-            self.tamanio = self.tamanio + p_lista.tamanio
-            
     
     def ordenar(self): 
         """Implementa un metodo de ordenamiento por insercion para ordenar la
         lista de menor a mayor """
+        #TODO Falta terminar 
         if self.cabeza != None:
             nodo = self.cabeza.siguiente
             
@@ -187,11 +181,61 @@ class ListaDobleEnlazada:
             
     def esta_vacia(self):
         return self.tamanio == 0
+    
+    def concatenar(self,p_lista):
+        """Concatena al final la lista que se pasa por parametro a
+        la lista actual """
+    #TODO: consultar: p_lista es modificada en el 3er parrafo???
+    # en caso de que si, esta mal?
+        if  p_lista.tamanio != 0:
+            temp = self.cola
+            self.cola.anterior.siguiente = temp
+            temp.anterior = self.cola.anterior
+            
+            p_lista.cabeza.anterior = temp
+            temp.siguiente = p_lista.cabeza
+            
+                     
+            self.cola = p_lista.cola
+            p_lista.cola.anterior.siguiente = self.cola
+            self.cola.anterior =  p_lista.cola.anterior
+            self.tamanio = self.tamanio + p_lista.tamanio
+          
         
     def __str__ (self):
         lista =[nodo for nodo in self ]
         return str(lista)
     
+    
+    def __getitem__(self, pos):
+        nodo = self.cabeza
+        for i,nodo in enumerate(self) :
+            nodo.siguiente
+            if i == pos:
+                break
+            
+        dato = nodo.dato
+        return dato
+
+
+    #TODO si te fijas en el test_concantenar usa corchetes para acceder a los
+    # datos, entonces hago el metodo magico para[] o devuelve una lista de python
+    # el __add__ ? 
+    def __add__(self, p_lista):
+        #TODO: esta mal implementado, falta corregir pero es guiarse por el concatenar
+        nueva = self
+        temp = nueva.cola 
+
+        nueva.cola.anterior.siguiente = temp
+        temp.anterior = nueva.cola.anterior
+        temp.siguiente = p_lista.cabeza
+        p_lista.cabeza.anterior = temp
+
+        nueva.cola = p_lista.cola
+        p_lista.cola.anterior.siguiente = nueva.cola
+        nueva.tamanio = nueva.tamanio + p_lista.tamanio
+        
+        return nueva
     
     
 class Nodo:
@@ -200,7 +244,6 @@ class Nodo:
         self.siguiente = None
         self.anterior = None
 
-    
     
     @property
     def dato(self):
@@ -237,9 +280,10 @@ class Nodo:
         
 if __name__ == '__main__':
     lista2= ListaDobleEnlazada()
-    lista2.agregar(0)
-    lista2.agregar(1)
-    lista2.insertar(0, 2)
+    lista2.agregar(111)
+    lista2.agregar(10)
+    lista2.insertar(0, 20)
+    
 ##########################################################  
 #   Prueba para demostrar que si inserta al final como correspode
 #   y que hay que consultar por el test de insertar en los extremos.
@@ -250,22 +294,31 @@ if __name__ == '__main__':
     
     nodo_anterior = None
     nodo_actual = lista2.cabeza
-    while nodo_actual.siguiente:
+    while nodo_actual.siguiente: 
         nodo_anterior = nodo_actual
         nodo_actual = nodo_actual.siguiente
         valor = nodo_anterior.dato
     
-    print("valor= ", valor) 
+    print("valor= ", valor) # cuando muestra valor es el dato anterior y no el ultimo
     print()
-    print(lista2)
 # fin de la prueba 
 #########################################################
 
-#   probando metodo extraer
-    print(lista2.extraer(-1))
-    print("Tamanio = ",lista2.tamanio)
-    print (lista2)
-    print("Fin del programa")
+
+########## PRUEBA: concatenar
+
+    lista3 = ListaDobleEnlazada()
+    lista3.agregar(3)
+    lista3.agregar(2)
+    lista3.agregar(1)
+    lista_sum = lista2 + lista3
+    print("lista con suma: ", lista_sum)
+    
+    print("cola ",lista2.cola)
+    print("lista2 sigue igual ", lista2)
+    print("lista3 sigue igual ", lista3)
+    print()
+    
     
 
     
