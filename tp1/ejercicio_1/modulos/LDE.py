@@ -54,59 +54,69 @@ class ListaDobleEnlazada:
     
     def insertar(self, pos, item):
         """Agrega un nuevo itema a la lista en la posicion 'pos' """
-        nuevo = Nodo(item)
-        temp=self.cabeza
-        if self.tamanio == 0:
-            self.cabeza = nuevo
-            self.cola = nuevo
-            
-        elif pos == (self.tamanio-1) :
-            self.cola.siguiente = nuevo
-            nuevo.anterior = self.cola
-            self.cola = nuevo
-            
-        elif pos == 0:
-            nuevo.siguiente = self.cabeza
-            self.cabeza.anterior = nuevo
-            self.cabeza= nuevo
-            
+        
+        if pos < 0 or pos >= self.tamanio:
+            raise IndexError("Posicion fuera de rango")
         else:
-            for it in range(pos-1):
-                temp = temp.siguiente
-            
-            # temp.siguiente = self.cabeza
-            # self.cabeza.anterior = temp
-            # self.cabeza= temp
-            nuevo.siguiente = temp.siguiente
-            temp.siguiente.anterior = nuevo
-            temp.siguiente = nuevo
-            nuevo.anterior = temp 
-            
-        self.tamanio +=1
+            nuevo = Nodo(item)
+            temp=self.cabeza
+            if self.tamanio == 0:
+                self.cabeza = nuevo
+                self.cola = nuevo
+                
+            elif pos == (self.tamanio-1) :
+                self.cola.siguiente = nuevo
+                nuevo.anterior = self.cola
+                self.cola = nuevo
+                
+            elif pos == 0:
+                nuevo.siguiente = self.cabeza
+                self.cabeza.anterior = nuevo
+                self.cabeza= nuevo
+                
+            else:
+                for it in range(pos-1):
+                    temp = temp.siguiente
+                
+                # temp.siguiente = self.cabeza
+                # self.cabeza.anterior = temp
+                # self.cabeza= temp
+                nuevo.siguiente = temp.siguiente
+                temp.siguiente.anterior = nuevo
+                temp.siguiente = nuevo
+                nuevo.anterior = temp 
+                
+            self.tamanio +=1
 
         
     
-    def extraer(self, pos ):
+    def extraer(self, pos=None):
         """elimina y devuelve el ítem en "posición". Si no se 
         indica el parámetro posición, se elimina y devuelve el 
-        último elemento de la lista """
+        último elemento de la lista, el parametro -1 devuelve el ultimo 
+        elemento, cualquier otro valor negativo lanzara una exception"""
         dato = 0
-        
+
+        if pos == None or pos == -1:
+            pos = self.tamanio-1
+        elif pos <-1 or pos >= self.tamanio:
+            raise Exception("Posición no valida")
+            
         if pos == 0:
-           dato = self.cabeza.dato
+           dato = self.cabeza
            self.cabeza = self.cabeza.siguiente
            self.cabeza.anterior = None
         elif pos == (self.tamanio -1):
-            dato = self.cola.dato
+            dato = self.cola
             self.cola = self.cola.anterior
             self.cola.siguiente = None
         else:
             temp = self.cabeza
             for it in range(pos-1):
                 temp = temp.siguiente
-            dato   = temp.dato
-            temp.anterior.siguiente = temp.siguiente
-            temp.siguiente.anterior = temp.anterior
+            dato = temp
+            temp.anterior = temp.siguiente
+            temp.siguiente = temp.anterior
         self.tamanio-=1
         return dato
     
@@ -228,71 +238,34 @@ class Nodo:
 if __name__ == '__main__':
     lista2= ListaDobleEnlazada()
     lista2.agregar(0)
+    lista2.agregar(1)
+    lista2.insertar(0, 2)
+##########################################################  
+#   Prueba para demostrar que si inserta al final como correspode
+#   y que hay que consultar por el test de insertar en los extremos.
+#TODO: consultar
+
+    lista2.insertar(lista2.tamanio-1,180)
     print(lista2)
-    print("tamanio1",lista2.tamanio)
-
-    lista2.insertar(0,10)
+    
+    nodo_anterior = None
+    nodo_actual = lista2.cabeza
+    while nodo_actual.siguiente:
+        nodo_anterior = nodo_actual
+        nodo_actual = nodo_actual.siguiente
+        valor = nodo_anterior.dato
+    
+    print("valor= ", valor) 
+    print()
     print(lista2)
-    print("tamanio2",lista2.tamanio)
+# fin de la prueba 
+#########################################################
 
-    lista2.insertar(1,20)
-    print(lista2)
+#   probando metodo extraer
+    print(lista2.extraer(-1))
+    print("Tamanio = ",lista2.tamanio)
+    print (lista2)
+    print("Fin del programa")
     
-    print("tamanio3",lista2.tamanio)
-
-    lista2.insertar(2,30)
-
-
-    # lista2.agregar(10)
-    # lista2.agregar(20)
-    # lista2.agregar(40)
-    
-    print(lista2)
-    print("tamanio4",lista2.tamanio)
-
-    lista2.insertar(lista2.tamanio-1,31)
-    lista2.insertar(lista2.tamanio-1,32)
-    
-    print(lista2)
-    print("tamanio6",lista2.tamanio)
-
-    
-    # print("\nagrego el valor 50")
-    # lista2.agregar(50)
-    # print(lista2)
-    
-    # print("\nextraigo el elemento 4")
-    # lista2.extraer(4)
-    # print (lista2)
-    
-    # print("\nextraigo el primer elemento\n")
-    # lista2.extraer(0)
-    # print (lista2)
-
-    # print ("\nextraigo el ultimo elemento")
-    # lista2.extraer(lista2.tamanio-1)
-    # print (lista2)
-    # print()
-    
-    # print("anexo 12")
-    # lista2.anexar(12)
-    # print(lista2)
-    
-    # lista2.anexar(8)
-    # print(lista2)
-    
-    # lista2.anexar(9)
-    # print(lista2)
-    
-    # print()
-    # print("agrego")
-    # lista2.agregar(67)
-    
-    # print(lista2)
-    
-    # print("\nordeno la lista")
-    
-    # lista2.ordenar()
-    # print (lista2)
 
     
