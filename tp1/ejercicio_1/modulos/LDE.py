@@ -163,6 +163,15 @@ class ListaDobleEnlazada:
            #       posicion = posicion-1
         
            #   unaLista[posicion]=valorActual
+    
+    def copiar(self):
+        """ Devuelve una copia de la lista actual"""
+        lista_copiada = ListaDobleEnlazada()
+        nodo = self.cabeza
+        for i,nodo in enumerate(self) :
+            lista_copiada.anexar(nodo)
+        return lista_copiada
+    
     @property
     def tamanio(self):
         return self._tamanio
@@ -222,7 +231,8 @@ class ListaDobleEnlazada:
     # datos, entonces hago el metodo magico para[] o devuelve una lista de python
     # el __add__ ? 
     def __add__(self, p_lista):
-        #TODO: esta mal implementado, falta corregir pero es guiarse por el concatenar
+        #TODO: esta mal implementado,cambia la lista original en 
+        # este caso, y no deberia ser asi
         nueva = self
         temp = nueva.cola 
 
@@ -305,20 +315,15 @@ if __name__ == '__main__':
 #########################################################
 
 
-########## PRUEBA: concatenar
+########## PRUEBA: 
+    copia = lista2.copiar()
+    print("lista2: ", lista2)
+    print("copia: ", copia)
+    
+    print(lista2.cabeza)
+    print(copia.cabeza)
 
-    lista3 = ListaDobleEnlazada()
-    lista3.agregar(3)
-    lista3.agregar(2)
-    lista3.agregar(1)
-    lista_sum = lista2 + lista3
-    print("lista con suma: ", lista_sum)
-    
-    print("cola ",lista2.cola)
-    print("lista2 sigue igual ", lista2)
-    print("lista3 sigue igual ", lista3)
-    print()
-    
+
     
 
     
