@@ -123,7 +123,11 @@ class ListaDobleEnlazada:
     def copiar(self):
         """Realiza una copia de la lista elemento a elemento y
         devuelve una copia """
-        pass
+        lista_copiada = ListaDobleEnlazada()
+        nodo = self.cabeza
+        for i,nodo in enumerate(self) :
+            lista_copiada.anexar(nodo)
+        return lista_copiada
            
     
     def ordenar(self): 
@@ -164,20 +168,16 @@ class ListaDobleEnlazada:
         
            #   unaLista[posicion]=valorActual
     
-    def copiar(self):
-        """ Devuelve una copia de la lista actual"""
-        lista_copiada = ListaDobleEnlazada()
-        nodo = self.cabeza
-        for i,nodo in enumerate(self) :
-            lista_copiada.anexar(nodo)
-        return lista_copiada
+
     
     @property
     def tamanio(self):
+        """getter de tamanio """
         return self._tamanio
     
     @tamanio.setter
     def tamanio(self,item):
+        """Setter de tamanio """
         self._tamanio = item 
         
     def __iter__(self):
@@ -189,6 +189,7 @@ class ListaDobleEnlazada:
             
             
     def esta_vacia(self):
+        """Devuelve True si la lista esta vacia """
         return self.tamanio == 0
     
     def concatenar(self,p_lista):
@@ -209,6 +210,20 @@ class ListaDobleEnlazada:
             p_lista.cola.anterior.siguiente = self.cola
             self.cola.anterior =  p_lista.cola.anterior
             self.tamanio = self.tamanio + p_lista.tamanio
+            
+    def invertir(self):
+        """ Invierte el orden de los elementos de la lista"""
+        temp = self.copiar()
+        temp = self.cola
+        invertida = ListaDobleEnlazada()
+        while temp.anterior == None:
+            invertida.anexar(temp)
+            temp.anterior
+            
+        return invertida
+        # for i, nodo in enumerate(temp):
+        #     invertida.anexar(temp[])
+        # pass
           
         
     def __str__ (self):
@@ -317,11 +332,11 @@ if __name__ == '__main__':
 
 ########## PRUEBA: 
     copia = lista2.copiar()
-    print("lista2: ", lista2)
-    print("copia: ", copia)
+    print("lista2: ", lista2.tamanio)
+    print("copia: ", copia.tamanio)
+    invertida = lista2.invertir()
+    print(invertida)
     
-    print(lista2.cabeza)
-    print(copia.cabeza)
 
 
     
