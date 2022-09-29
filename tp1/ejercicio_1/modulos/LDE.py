@@ -65,9 +65,11 @@ class ListaDobleEnlazada:
                 self.cola = nuevo
                 
             elif pos == (self.tamanio-1) :
-                self.cola.siguiente = nuevo
-                nuevo.anterior = self.cola
-                self.cola = nuevo
+                self.cola.anterior.siguiente = nuevo
+                nuevo.anterior=self.cola.anterior
+                nuevo.siguiente= self.cola
+                self.cola.anterior=nuevo
+                
                 
             elif pos == 0:
                 nuevo.siguiente = self.cabeza
@@ -78,9 +80,7 @@ class ListaDobleEnlazada:
                 for it in range(pos-1):
                     temp = temp.siguiente
                 
-                # temp.siguiente = self.cabeza
-                # self.cabeza.anterior = temp
-                # self.cabeza= temp
+             
                 nuevo.siguiente = temp.siguiente
                 temp.siguiente.anterior = nuevo
                 temp.siguiente = nuevo
@@ -126,7 +126,7 @@ class ListaDobleEnlazada:
         lista_copiada = ListaDobleEnlazada()
         nodo = self.cabeza
         for i,nodo in enumerate(self) :
-            lista_copiada.anexar(nodo)
+            lista_copiada.anexar(nodo.dato)
         return lista_copiada
            
     
@@ -211,9 +211,14 @@ class ListaDobleEnlazada:
             self.cola.anterior =  p_lista.cola.anterior
             self.tamanio = self.tamanio + p_lista.tamanio
             
+        return self
+        # if self.tamanio == 0:
+        #     self = p_lista
+            
+            
     def invertir(self):
         """ Invierte el orden de los elementos de la lista"""
-        temp = self.copiar()
+        # temp = self.copiar()
         temp = self.cola
         invertida = ListaDobleEnlazada()
         while temp.anterior == None:
@@ -307,33 +312,20 @@ if __name__ == '__main__':
     lista2= ListaDobleEnlazada()
     lista2.agregar(111)
     lista2.agregar(10)
-    lista2.insertar(0, 20)
-    
-##########################################################  
-#   Prueba para demostrar que si inserta al final como correspode
-#   y que hay que consultar por el test de insertar en los extremos.
-#TODO: consultar
+    lista2.agregar(100)
 
-    lista2.insertar(lista2.tamanio-1,180)
+
+    lista2.insertar(0, 20)
     print(lista2)
     
-    nodo_anterior = None
-    nodo_actual = lista2.cabeza
-    while nodo_actual.siguiente: 
-        nodo_anterior = nodo_actual
-        nodo_actual = nodo_actual.siguiente
-        valor = nodo_anterior.dato
+ 
     
-    print("valor= ", valor) # cuando muestra valor es el dato anterior y no el ultimo
-    print()
-# fin de la prueba 
-#########################################################
-
-
-########## PRUEBA: 
     copia = lista2.copiar()
-    print("lista2: ", lista2.tamanio)
-    print("copia: ", copia.tamanio)
+    print(copia)
+    print(lista2)
+         
+    print("lista2: ", type(lista2.cola.dato))
+    print("copia: ", type(copia.cola.dato))
     invertida = lista2.invertir()
     print(invertida)
     

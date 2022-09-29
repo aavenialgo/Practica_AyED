@@ -78,32 +78,32 @@ class Test_LDE(unittest.TestCase):
             self.assertEqual(elem.dato, lista_aux[ind])
             
     
-    # def test_insertar_extremos(self):
-    #     #TODO: si funciona insertar al final pero no en el test
+    def test_insertar_extremos(self):
+        #TODO: si funciona insertar al final pero no en el test
 
-    #     """
-    #     inserto ítems en los extremos de la LDE, compruebo 
-    #     tamaño correcto y su valor.
-    #     """
+        """
+        inserto ítems en los extremos de la LDE, compruebo 
+        tamaño correcto y su valor.
+        """
 
-    #     """inserto 1er item al inicio"""
-    #     self.lde_2.insertar(0, 120)
-    #     self.n_elementos += 1
-    #     self.assertEqual(self.lde_2.tamanio, self.n_elementos)
-    #     print(self.lde_2)
-    #     self.assertEqual(self.lde_2.cabeza.dato, 120)
+        """inserto 1er item al inicio"""
+        self.lde_2.insertar(0, 120)
+        self.n_elementos += 1
+        self.assertEqual(self.lde_2.tamanio, self.n_elementos)
+        print(self.lde_2)
+        self.assertEqual(self.lde_2.cabeza.dato, 120)
         
-    #     """inserto 2do item en la última posición"""
-    #     self.lde_2.insertar(self.lde_2.tamanio-1, 180)
-    #     self.n_elementos += 1
-    #     self.assertEqual(self.lde_2.tamanio, self.n_elementos)
-    #     nodo_anterior = None
-    #     nodo_actual = self.lde_2.cabeza
-    #     while nodo_actual.siguiente: # si dice nodo_actual funciona (Consultar)
-    #         nodo_anterior = nodo_actual
-    #         nodo_actual = nodo_actual.siguiente
-    #         valor = nodo_anterior.dato            
-    #     self.assertEqual(valor, 180)
+        """inserto 2do item en la última posición"""
+        self.lde_2.insertar(self.lde_2.tamanio-1, 180)
+        self.n_elementos += 1
+        self.assertEqual(self.lde_2.tamanio, self.n_elementos)
+        nodo_anterior = None
+        nodo_actual = self.lde_2.cabeza
+        while nodo_actual.siguiente: # si dice nodo_actual funciona (Consultar)
+            nodo_anterior = nodo_actual
+            nodo_actual = nodo_actual.siguiente
+            valor = nodo_anterior.dato            
+        self.assertEqual(valor, 180)
         
     
     def test_insertar_interior(self):
@@ -293,22 +293,22 @@ class Test_LDE(unittest.TestCase):
     #         self.assertEqual(self.lista_aux_3[i], nodo.dato)
             
     
-    # def test_concatenar(self):
-    #     """
-    #     Comparo elemento a elemento de dos listas concatenadas:
-    #     una lista de Python obtenida con el operador "+" y otra LDE con
-    #     el método concatenar().
-    #     Comparo tamaños de ambas listas y verifico que sean iguales.
+    def test_concatenar(self):
+        """
+        Comparo elemento a elemento de dos listas concatenadas:
+        una lista de Python obtenida con el operador "+" y otra LDE con
+        el método concatenar().
+        Comparo tamaños de ambas listas y verifico que sean iguales.
         
-    #     """        
-    #     lista_concatenada1 = self.lista_aux_3 + self.lista_aux_2
-    #     lista_concatenada2 = self.lde_3.concatenar(self.lde_2)
+        """        
+        lista_concatenada1 = self.lista_aux_3 + self.lista_aux_2
+        lista_concatenada2 = self.lde_3.concatenar(self.lde_2)
         
-    #     for i,nodo in enumerate(lista_concatenada2):
+        for i,nodo in enumerate(lista_concatenada2):
             
-    #         self.assertEqual(lista_concatenada1[i], nodo.dato)
+            self.assertEqual(lista_concatenada1[i], nodo.dato)
             
-    #     self.assertEqual(len(lista_concatenada1), lista_concatenada2.tamanio)
+        self.assertEqual(len(lista_concatenada1), lista_concatenada2.tamanio)
                         
     
 if __name__ == "__main__":
