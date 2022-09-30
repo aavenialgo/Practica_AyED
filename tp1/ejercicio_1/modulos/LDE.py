@@ -131,44 +131,41 @@ class ListaDobleEnlazada:
            
     
     def ordenar(self): 
-        """Implementa un metodo de ordenamiento por insercion para ordenar la
-        lista de menor a mayor """
-        #TODO Falta terminar 
-        if self.cabeza != None:
-            nodo = self.cabeza.siguiente
+        """Ordena de menor a mayor """
+        
+        for i in range (self.tamanio,0, -1):
+            if (i==1):
+                break
+            aux = self.cabeza
+            pos_mayor = 1
+            nodo_mayor = Nodo(-9999999)
             
-            # valor actual es nodo
-            # una lista[pos-1] es nodo.anterior
-            for indice in range(1,self.tamanio):
-                pos = indice
-                sleep(3)
-                while nodo :
+            for j in range (1, i+1):
+                
+                if aux.dato >nodo_mayor.dato:
+                    nodo_mayor = aux
+                    pos_mayor = j
+                if j == i:
+                    if pos_mayor == 1:
+                        self.cabeza = self.cabeza.siguiente
+                        self.cabeza.anterior = None
+                    elif pos_mayor != i:
+                        nodo_mayor.anterior.siguiente = nodo_mayor.siguiente
+                        nodo_mayor.siguiente.anterior = nodo_mayor.anterior
                     
-                    print("nodo dato =", nodo)
-                    if (nodo.anterior.dato > nodo.dato) and pos>0:
-                        nodo = nodo.anterior
-                        pos -= 1
+                    if pos_mayor != i and i != self.tamanio :
+                        aux.siguiente.anterior = nodo_mayor
+                        nodo_mayor.anterior = aux
+                        nodo_mayor.siguiente = aux.siguiente
+                        aux.siguiente = nodo_mayor
+                    elif pos_mayor != i and i == self.tamanio:
+                        self.cola.siguiente = nodo_mayor
+                        nodo_mayor.anterior = self.cola
+                        self.cola = nodo_mayor
+                        self.cola.siguiente = None
+                aux = aux.siguiente
                     
-                nodo = nodo.siguiente
-        nodo = self.cabeza.siguiente
-        while nodo:
-            
-            while nodo:
-                pass
-            
-   #     def ordenamientoPorInsercion(unaLista):
-           # for indice in range(1,len(unaLista)):
-        
-           #   valorActual = unaLista[indice]
-           #   posicion = indice
-        
-           #   while posicion>0 and unaLista[posicion-1]>valorActual:
-           #       unaLista[posicion]=unaLista[posicion-1]
-           #       posicion = posicion-1
-        
-           #   unaLista[posicion]=valorActual
-    
-
+                
     
     @property
     def tamanio(self):
@@ -195,8 +192,6 @@ class ListaDobleEnlazada:
     def concatenar(self,p_lista):
         """Concatena al final la lista que se pasa por parametro a
         la lista actual """
-    #TODO: consultar: p_lista es modificada en el 3er parrafo???
-    # en caso de que si, esta mal?
         if  p_lista.tamanio != 0:
             temp = self.cola
             self.cola.anterior.siguiente = temp
@@ -212,24 +207,26 @@ class ListaDobleEnlazada:
             self.tamanio = self.tamanio + p_lista.tamanio
             
         return self
-        # if self.tamanio == 0:
-        #     self = p_lista
             
             
     def invertir(self):
         """ Invierte el orden de los elementos de la lista"""
-        # temp = self.copiar()
-        temp = self.cola
-        invertida = ListaDobleEnlazada()
-        while temp.anterior == None:
-            invertida.anexar(temp)
-            temp.anterior
             
-        return invertida
-        # for i, nodo in enumerate(temp):
-        #     invertida.anexar(temp[])
-        # pass
-          
+        temp = self.cabeza
+        self.cabeza = self.cola
+        self.cola = temp
+        for i in range (self.tamanio-1):
+            temp = temp.siguiente
+            if i == 0:
+                temp.anterior.siguiente = None
+
+            else:
+                temp.anterior.siguiente = temp.anterior.anterior
+            temp.anterior.anterior = temp
+        temp.siguiente = temp.anterior
+        temp.anterior = None
+        
+         
         
     def __str__ (self):
         lista =[nodo for nodo in self ]
@@ -247,12 +244,7 @@ class ListaDobleEnlazada:
         return dato
 
 
-    #TODO si te fijas en el test_concantenar usa corchetes para acceder a los
-    # datos, entonces hago el metodo magico para[] o devuelve una lista de python
-    # el __add__ ? 
     def __add__(self, p_lista):
-        #TODO: esta mal implementado,cambia la lista original en 
-        # este caso, y no deberia ser asi
         nueva = self
         temp = nueva.cola 
 
@@ -307,27 +299,6 @@ class Nodo:
 
 
 
-        
-if __name__ == '__main__':
-    lista2= ListaDobleEnlazada()
-    lista2.agregar(111)
-    lista2.agregar(10)
-    lista2.agregar(100)
-
-
-    lista2.insertar(0, 20)
-    print(lista2)
-    
- 
-    
-    copia = lista2.copiar()
-    print(copia)
-    print(lista2)
-         
-    print("lista2: ", type(lista2.cola.dato))
-    print("copia: ", type(copia.cola.dato))
-    invertida = lista2.invertir()
-    print(invertida)
     
 
 
