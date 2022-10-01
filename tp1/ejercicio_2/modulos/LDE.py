@@ -132,17 +132,16 @@ class ListaDobleEnlazada:
     
     def ordenar(self): 
         """Ordena de menor a mayor """
-        pasos =0
+        
         for i in range (self.tamanio,0, -1):
             if (i==1):
                 break
             aux = self.cabeza
             pos_mayor = 1
             nodo_mayor = Nodo(-9999999)
-            pasos +=1
+            
             for j in range (1, i+1):
-                pasos +=1
-
+                
                 if aux.dato >nodo_mayor.dato:
                     nodo_mayor = aux
                     pos_mayor = j
@@ -166,7 +165,7 @@ class ListaDobleEnlazada:
                         self.cola.siguiente = None
                 aux = aux.siguiente
                     
-        return pasos     
+                
     
     @property
     def tamanio(self):
