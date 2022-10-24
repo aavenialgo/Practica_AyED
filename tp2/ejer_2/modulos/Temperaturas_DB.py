@@ -4,9 +4,12 @@ Created on Thu Oct 20 11:08:43 2022
 
 @author: Andres Venialgo
 """
+from modulos.Arbol_AVL import ArbolAVL
 
 class TemperaturasDB():
     def __init__(self):
+        self.arbol = ArbolAVL()
+        
         pass
     
 
@@ -49,6 +52,8 @@ class TemperaturasDB():
     
     def mostrar_cantidad_muestras(self):
         """ muestra por consola la cantidad de muestras de la BD"""
-        pass
+        return self.arbol.tamano
+    
+
     
     

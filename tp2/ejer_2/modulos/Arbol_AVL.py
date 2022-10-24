@@ -16,10 +16,12 @@ class ArbolAVL():
         
     
     def agregar(self, clave, valor):
+        """Agrega un nodo al arbol """
         self.raiz = self._agregar(self.raiz, clave, valor)
         
     def _agregar(self, raiz_subarbol, clave, valor, padre = None):
-        
+        """ Busca de manera recursiva la posicion a insertar el nuevo
+        nodo y lo devuelve """
         if not raiz_subarbol:
             raiz_subarbol = NodoArbol( clave,valor, padre=padre)
             self.tamano = self.tamano +1 
@@ -28,10 +30,13 @@ class ArbolAVL():
             if clave < raiz_subarbol.clave:
                 raiz_subarbol.hijoIzquierdo = self._agregar(raiz_subarbol.hijoIzquierdo, clave, valor, 
                                                   raiz_subarbol)
+                self.actualizarEquilibrio(raiz_subarbol)
                 
             else:
                 raiz_subarbol.hijoDerecho = self._agregar (raiz_subarbol.hijoDerecho, clave, valor,
                                                    raiz_subarbol)
+                self.actualizarEquilibrio(raiz_subarbol)
+
                 
         return raiz_subarbol
     
