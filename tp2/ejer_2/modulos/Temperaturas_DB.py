@@ -5,7 +5,7 @@ Created on Thu Oct 20 11:08:43 2022
 @author: Andres Venialgo
 """
 from modulos.Arbol_AVL import ArbolAVL
-
+from modulos.Arbol_AVL import iterador
 class TemperaturasDB():
     def __init__(self):
         self.arbol = ArbolAVL()
@@ -15,11 +15,15 @@ class TemperaturasDB():
 
     def guardar_temperatura(self, temperatura, fecha):
         """guarda la medida de temperatura asociada a la fecha """
-        pass
+        self.arbol.agregar(fecha, temperatura)
+        
+        
     
     def devolver_temperatura(self, fecha):
         """devuelve la medida de temperatura en la fecha determinada """
-        pass
+        return self.arbol.obtener(fecha)
+    
+        
     
     def max_temp_rango(self, fecha1, fecha2):
         """devuelve la temperatura máxima entre los rangos fecha1 y fecha2 inclusive
@@ -40,7 +44,7 @@ class TemperaturasDB():
     def borrar_temperatura(self, fecha):
         """ recibe una fecha y elimina del árbol la medición correspondiente a esa 
             fecha. """
-        pass
+        self.arbol.eliminar(fecha)
     
     
     def mostrar_temperaturas(self, fecha1, fecha2):
@@ -52,7 +56,10 @@ class TemperaturasDB():
     
     def mostrar_cantidad_muestras(self):
         """ muestra por consola la cantidad de muestras de la BD"""
-        return self.arbol.tamano
+        it = iterador(self.arbol, self.arbol.raiz)
+        for muestras in it:
+            print(muestras)
+            
     
 
     
