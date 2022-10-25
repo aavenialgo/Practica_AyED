@@ -12,7 +12,15 @@ class NodoArbol:
          self.hijoIzquierdo = izquierdo
          self.hijoDerecho = derecho
          self.padre = padre
+         self.factorEquilibrio = 0
          
+    @property
+    def factorEquilibrio(self):
+        return self._factorEquilibrio
+    
+    @factorEquilibrio.setter
+    def factorEquilibrio(self, value):
+        self._factorEquilibrio = value
     @property
     def clave(self):
         return self._clave
@@ -170,6 +178,9 @@ class NodoArbol:
 if __name__ == '__main__':
     a = NodoArbol("manzana", 'roja')
     print(a)
+    a.hijoIzquierdo= NodoArbol("banana", "amarilla")
+    print(a.hijoIzquierdo)
+
     
 
         

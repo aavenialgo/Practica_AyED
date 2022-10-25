@@ -6,16 +6,17 @@ Created on Thu Oct 20 11:08:43 2022
 """
 from modulos.Arbol_AVL import ArbolAVL
 from modulos.Arbol_AVL import iterador
+from modulos.NodoArbol import NodoArbol
 class TemperaturasDB():
     def __init__(self):
         self.arbol = ArbolAVL()
         
-        pass
+        
     
 
     def guardar_temperatura(self, temperatura, fecha):
         """guarda la medida de temperatura asociada a la fecha """
-        self.arbol.agregar(fecha, temperatura)
+        self.arbol.agregar(temperatura, fecha)
         
         
     
@@ -56,11 +57,32 @@ class TemperaturasDB():
     
     def mostrar_cantidad_muestras(self):
         """ muestra por consola la cantidad de muestras de la BD"""
-        it = iterador(self.arbol, self.arbol.raiz)
+        it = iterador(self.arbol, "01-02-00")
         for muestras in it:
             print(muestras)
+            print(muestras.factorEquilibrio)
             
+            
+if __name__ == "__main__":
+    a = TemperaturasDB()
+    a.guardar_temperatura( 22, "14-07-00")
+    a.guardar_temperatura( 30, "01-02-00")
+    a.guardar_temperatura( 35, "24-04-00")
+    a.guardar_temperatura(12, "2017-02-28")
+    # a.guardar_temperatura(25, "2017-04-20")
+    # a.guardar_temperatura(32, "2017-05-04")
+    # a.guardar_temperatura(40, "2017-02-22")
+    # a.guardar_temperatura(23, "2017-03-28")
+    # a.guardar_temperatura(12, "2017-05-07")
+    # a.guardar_temperatura(27, "2017-04-29")
     
-
+    a.mostrar_cantidad_muestras()
+       
+    # 2017-04-20 25
+    # 2017-05-04 32
+    # 2017-02-22 40
+    # 2017-03-28 23
+    # 2017-05-07 12
+    # 2017-04-29 27
     
     

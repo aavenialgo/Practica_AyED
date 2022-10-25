@@ -11,11 +11,13 @@ class ArbolAVL():
     def __init__(self):
         self.raiz = None
         self.tamano = 0
+        self.factorEquilibrio = 0
         
         
-        
+    # def getRaiz(self):
+    #     return str(self.raiz)
     
-    def agregar(self, clave, valor):
+    def agregar(self, valor, clave):
         """Agrega un nodo al arbol """
         self.raiz = self._agregar(self.raiz, clave, valor)
         
@@ -84,14 +86,15 @@ class ArbolAVL():
           return None
     
     def _obtener(self,clave,nodoActual):
-       if not nodoActual:
-           return None
-       elif nodoActual.clave == clave:
-           return nodoActual
-       elif clave < nodoActual.clave:
-           return self._obtener(clave,nodoActual.hijoIzquierdo)
-       else:
-           return self._obtener(clave,nodoActual.hijoDerecho)
+        
+        if not nodoActual:
+            return None
+        elif nodoActual.clave == clave:
+            return nodoActual
+        elif clave < nodoActual.clave:
+            return self._obtener(clave,nodoActual.hijoIzquierdo)
+        else:
+            return self._obtener(clave,nodoActual.hijoDerecho)
 
 #--------------------------- ROTACIONES --------------------------------------------
     def rotarIzquierda(self,rotRaiz):
@@ -100,7 +103,7 @@ class ArbolAVL():
         if nuevaRaiz.hijoIzquierdo != None:
             nuevaRaiz.hijoIzquierdo.padre = rotRaiz
         nuevaRaiz.padre = rotRaiz.padre
-        if rotRaiz.esRaiz():
+        if rotRaiz.esRaiz:
             self.raiz = nuevaRaiz
         else:
             if rotRaiz.esHijoIzquierdo():
@@ -231,12 +234,19 @@ class iterador():
        
 if __name__ == '__main__':
     a = ArbolAVL()
-    a.agregar("14-07-00", 22)
-    a.agregar("01-02-00", 30)
-    a.agregar("24-04-00", 35)
+    a.agregar( 22, "14-07-00")
+    a.agregar( 30, "01-02-00")
+    a.agregar( 35, "24-04-00")
+    a.agregar(12, "2017-02-28")
+    # a.agregar(25, "2017-04-20")
+    # a.guardar_temperatura(32, "2017-05-04")
+    # a.guardar_temperatura(40, "2017-02-22")
+    # a.guardar_temperatura(23, "2017-03-28")
+    # a.guardar_temperatura(12, "2017-05-07")
+    # a.guardar_temperatura(27, "2017-04-29")
 
 
-    it = iterador(a,"14-07-00")
+    it = iterador(a,"01-02-00")
     for nodo in it:
         print(nodo)
     
