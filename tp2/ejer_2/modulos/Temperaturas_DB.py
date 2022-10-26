@@ -60,21 +60,25 @@ class TemperaturasDB():
         it = iterador(self.arbol, "01-02-00")
         for muestras in it:
             print(muestras)
-            print(muestras.factorEquilibrio)
             
             
 if __name__ == "__main__":
     a = TemperaturasDB()
+
+    
+    
     a.guardar_temperatura( 22, "14-07-00")
     a.guardar_temperatura( 30, "01-02-00")
     a.guardar_temperatura( 35, "24-04-00")
     a.guardar_temperatura(12, "2017-02-28")
-    # a.guardar_temperatura(25, "2017-04-20")
-    # a.guardar_temperatura(32, "2017-05-04")
-    # a.guardar_temperatura(40, "2017-02-22")
-    # a.guardar_temperatura(23, "2017-03-28")
-    # a.guardar_temperatura(12, "2017-05-07")
-    # a.guardar_temperatura(27, "2017-04-29")
+    a.guardar_temperatura(25, "2017-04-20")
+    a.guardar_temperatura(32, "2017-05-04")
+    a.guardar_temperatura(40, "2017-02-22")
+    a.guardar_temperatura(23, "2017-03-28")
+    a.guardar_temperatura(12, "2017-05-07")
+    a.guardar_temperatura(27, "2017-04-29")
+    
+    
     
     a.mostrar_cantidad_muestras()
        

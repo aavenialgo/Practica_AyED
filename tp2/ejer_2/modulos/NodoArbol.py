@@ -51,14 +51,17 @@ class NodoArbol:
     
     @hijoIzquierdo.setter
     def hijoIzquierdo(self,nueva_hoja):
+        """ Setter de hijo izquierdo """
         self._hijoIzquierdo=nueva_hoja
     
     @property
     def hijoDerecho(self):
+        """ Getter de hijo derecho """
         return self._hijoDerecho
      
     @hijoDerecho.setter
     def hijoDerecho(self,nueva_hoja):
+        """ Setter de hijo derecho """
         self._hijoDerecho=nueva_hoja
     
     def esHijoIzquierdo(self):
@@ -157,6 +160,12 @@ class NodoArbol:
                       self.padre.hijoDerecho = self.hijoDerecho
                    self.hijoDerecho.padre = self.padre
 
+    def inorden(self,arbol):
+        if arbol != None:
+            self.inorden(arbol.hijoIzquierdo)
+            print(arbol.raiz)
+            self.inorden(arbol.hijoDerecho)   
+
     def __iter__(self):
        if self:
           if self.tieneHijoIzquierdo():
@@ -168,7 +177,7 @@ class NodoArbol:
                     yield elem
        else:
            raise StopIteration
-        
+    
     def __getitem__(self,clave):
         return self.obtener(clave)
     

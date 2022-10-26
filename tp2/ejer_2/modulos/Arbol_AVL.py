@@ -17,30 +17,52 @@ class ArbolAVL():
     # def getRaiz(self):
     #     return str(self.raiz)
     
-    def agregar(self, valor, clave):
-        """Agrega un nodo al arbol """
-        self.raiz = self._agregar(self.raiz, clave, valor)
-        
-    def _agregar(self, raiz_subarbol, clave, valor, padre = None):
-        """ Busca de manera recursiva la posicion a insertar el nuevo
-        nodo y lo devuelve """
-        if not raiz_subarbol:
-            raiz_subarbol = NodoArbol( clave,valor, padre=padre)
-            self.tamano = self.tamano +1 
+    # def agregar(self, valor, clave):
+    #     """Agrega un nodo al arbol """
+    #     self.raiz = self._agregar(self.raiz, clave, valor)
+    # def _agregar(self, raiz_subarbol, clave, valor, padre = None):
+    #     """ Busca de manera recursiva la posicion a insertar el nuevo
+    #     nodo y lo devuelve """
+    #     if not raiz_subarbol:
+    #         raiz_subarbol = NodoArbol( clave,valor, padre=padre)
+    #         self.tamano = self.tamano +1 
             
-        else: 
-            if clave < raiz_subarbol.clave:
-                raiz_subarbol.hijoIzquierdo = self._agregar(raiz_subarbol.hijoIzquierdo, clave, valor, 
-                                                  raiz_subarbol)
-                self.actualizarEquilibrio(raiz_subarbol)
+        # else: 
+        #     if clave < raiz_subarbol.clave:
+        #         raiz_subarbol.hijoIzquierdo = self._agregar(raiz_subarbol.hijoIzquierdo, clave, valor, 
+        #                                           raiz_subarbol)
+        #         self.actualizarEquilibrio(raiz_subarbol)
                 
-            else:
-                raiz_subarbol.hijoDerecho = self._agregar (raiz_subarbol.hijoDerecho, clave, valor,
-                                                   raiz_subarbol)
-                self.actualizarEquilibrio(raiz_subarbol)
+        #     else:
+        #         raiz_subarbol.hijoDerecho = self._agregar (raiz_subarbol.hijoDerecho, clave, valor,
+        #                                            raiz_subarbol)
+        #         self.actualizarEquilibrio(raiz_subarbol)
 
                 
-        return raiz_subarbol
+        # return raiz_subarbol
+        
+    def agregar(self,valor,clave):
+        if self.raiz:
+            self._agregar(clave,valor,self.raiz)
+        else:
+            self.raiz = NodoArbol(clave,valor)
+        self.tamano = self.tamano + 1
+        
+    def _agregar(self,clave,valor,nodoActual):
+        if clave < nodoActual.clave:
+            if nodoActual.tieneHijoIzquierdo:
+                    self._agregar(clave,valor,nodoActual.hijoIzquierdo)
+            else:
+                    nodoActual.hijoIzquierdo = NodoArbol(clave,valor,padre=nodoActual)
+                    self.actualizarEquilibrio(nodoActual.hijoIzquierdo)
+        else:
+            if nodoActual.tieneHijoDerecho:
+                    self._agregar(clave,valor,nodoActual.hijoDerecho)
+            else:
+                    nodoActual.hijoDerecho = NodoArbol(clave,valor,padre=nodoActual)
+                    self.actualizarEquilibrio(nodoActual.hijoDerecho)
+            
+   
     
     def actualizarEquilibrio(self,nodo):
         """El metodo compruema primero si el nodo actual requiere un reequilibrio
@@ -99,6 +121,7 @@ class ArbolAVL():
 #--------------------------- ROTACIONES --------------------------------------------
     def rotarIzquierda(self,rotRaiz):
         nuevaRaiz = rotRaiz.hijoDerecho
+        
         rotRaiz.hijoDerecho = nuevaRaiz.hijoIzquierdo
         if nuevaRaiz.hijoIzquierdo != None:
             nuevaRaiz.hijoIzquierdo.padre = rotRaiz
@@ -213,6 +236,11 @@ class ArbolAVL():
             return True
         else:
             return False
+    def inorden(self,arbol):
+        if arbol != None:
+            self.inorden(arbol.hijoIzquierdo)
+            print(arbol.raiz)
+            self.inorden(arbol.hijoDerecho)
     
 class iterador():
     def __init__(self,arbol,claveInicial):
@@ -234,10 +262,18 @@ class iterador():
        
 if __name__ == '__main__':
     a = ArbolAVL()
-    a.agregar( 22, "14-07-00")
-    a.agregar( 30, "01-02-00")
-    a.agregar( 35, "24-04-00")
-    a.agregar(12, "2017-02-28")
+    a.agregar(10, "c")
+    a.agregar(20,"b")
+    
+    a.agregar(30, "d")
+    a.agregar(40, "e" )
+    
+    a.inorden(a.obtener("c"))
+    
+    # a.agregar( 22, "14-07-00")
+    # a.agregar( 30, "01-02-00")
+    # a.agregar( 35, "24-04-00")
+    # a.agregar(12, "2017-02-28")
     # a.agregar(25, "2017-04-20")
     # a.guardar_temperatura(32, "2017-05-04")
     # a.guardar_temperatura(40, "2017-02-22")
@@ -246,7 +282,7 @@ if __name__ == '__main__':
     # a.guardar_temperatura(27, "2017-04-29")
 
 
-    it = iterador(a,"01-02-00")
+    it = iterador(a,"b")
     for nodo in it:
         print(nodo)
     
