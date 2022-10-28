@@ -142,16 +142,14 @@ class ArbolAVL():
     def rotarDerecha(self, rotRaiz):
         nuevaRaiz = rotRaiz.hijoIzquierdo
         rotRaiz.hijoIzquierdo = nuevaRaiz.hijoDerecho
-        if nuevaRaiz.hijoDerecho != None:
-            nuevaRaiz.hijoDerecho.padre = rotRaiz
-        nuevaRaiz.padre = rotRaiz.padre
-        if rotRaiz.esRaiz:
+        if rotRaiz.padre is None:
             self.raiz = nuevaRaiz
         else:
-            if rotRaiz.esHijoDerecho:
+            if rotRaiz.esHijoIzquierdo:
+                rotRaiz.padre.hijoIzquierdo = nuevaRaiz
+            elif rotRaiz.esHijoDerecho:
                 rotRaiz.padre.hijoDerecho = nuevaRaiz
-            else:
-                rotRaiz.padre.hijoderecho = nuevaRaiz
+
         nuevaRaiz.hijoDerecho = rotRaiz
         # rotRaiz.padre = nuevaRaiz
         rotRaiz.factorE = rotRaiz.factorEquilibrio +1 - min(0,nuevaRaiz.factorEquilibrio)
@@ -236,27 +234,39 @@ class ArbolAVL():
             return True
         else:
             return False
-    def inorden(self,arbol):
-        if arbol != None:
-            self.inorden(arbol.hijoIzquierdo)
-            print(arbol.raiz)
-            self.inorden(arbol.hijoDerecho)
+        
+    def inorden(self,nodo):
+        if nodo != None:
+            inorden(nodo.hijoIzquierdo)
+            print(nodo)
+            inorden(nodo.hijoDerecho)
     
 class iterador():
     def __init__(self,arbol,claveInicial):
         
-        self._arbol = arbol
-        self._nodoinicio =self._arbol._obtener(claveInicial,self._arbol.raiz)
+        # self._arbol = arbol
+        self._nodoinicio =arbol._obtener(claveInicial, arbol.raiz)
+        
         
     def __iter__(self):
         return self
     
     def __next__(self):
-        salida = self._nodoinicio.encontrarSucesor()
-        self._nodoinicio = salida 
+        salida = self._nodoinicio 
+        # self._nodoinicio = salida
+                    
         if salida == None:
             raise StopIteration
+        print("factor ",salida.factorEquilibrio)
+        self._nodoinicio = self._nodoinicio.encontrarSucesor()
+
         return salida
+#-----------------------------------------------------------------------
+def inorden(nodo):
+  if nodo != None:
+      inorden(nodo.hijoIzquierdo)
+      print(nodo)
+      inorden(nodo.hijoDerecho)
    
         
        
@@ -267,8 +277,18 @@ if __name__ == '__main__':
     
     a.agregar(30, "d")
     a.agregar(40, "e" )
-    
-    a.inorden(a.obtener("c"))
+    a.agregar(40, "z" )
+
+    a.agregar(40, "g" )
+    a.agregar(40, "a" )
+    a.agregar(40, "h" )
+
+
+    # a.agregar(40, "t" )
+
+    # a.agregar(40, "u" )
+
+    # a.inorden(a.raiz)
     
     # a.agregar( 22, "14-07-00")
     # a.agregar( 30, "01-02-00")
@@ -282,7 +302,7 @@ if __name__ == '__main__':
     # a.guardar_temperatura(27, "2017-04-29")
 
 
-    it = iterador(a,"b")
+    it = iterador(a, "a")
     for nodo in it:
         print(nodo)
     
