@@ -4,8 +4,8 @@ Created on Thu Oct 20 11:23:51 2022
 
 @author: alumno
 """
-from NodoArbol import NodoArbol
-
+from modulos.NodoArbol import NodoArbol
+ 
 
 class ArbolAVL(): 
     def __init__(self):
@@ -13,35 +13,9 @@ class ArbolAVL():
         self.tamano = 0
         self.factorEquilibrio = 0
         
-        
-    # def getRaiz(self):
-    #     return str(self.raiz)
-    
-    # def agregar(self, valor, clave):
-    #     """Agrega un nodo al arbol """
-    #     self.raiz = self._agregar(self.raiz, clave, valor)
-    # def _agregar(self, raiz_subarbol, clave, valor, padre = None):
-    #     """ Busca de manera recursiva la posicion a insertar el nuevo
-    #     nodo y lo devuelve """
-    #     if not raiz_subarbol:
-    #         raiz_subarbol = NodoArbol( clave,valor, padre=padre)
-    #         self.tamano = self.tamano +1 
-            
-        # else: 
-        #     if clave < raiz_subarbol.clave:
-        #         raiz_subarbol.hijoIzquierdo = self._agregar(raiz_subarbol.hijoIzquierdo, clave, valor, 
-        #                                           raiz_subarbol)
-        #         self.actualizarEquilibrio(raiz_subarbol)
                 
-        #     else:
-        #         raiz_subarbol.hijoDerecho = self._agregar (raiz_subarbol.hijoDerecho, clave, valor,
-        #                                            raiz_subarbol)
-        #         self.actualizarEquilibrio(raiz_subarbol)
-
-                
-        # return raiz_subarbol
         
-    def agregar(self,valor,clave):
+    def agregar(self,clave,valor):
         if self.raiz:
             self._agregar(clave,valor,self.raiz)
         else:
@@ -281,7 +255,7 @@ if __name__ == '__main__':
 
     a.agregar(40, "g" )
     a.agregar(40, "a" )
-    a.agregar(40, "h" )
+    # a.agregar(40, "h" )
 
 
     # a.agregar(40, "t" )

@@ -12,10 +12,11 @@ from datetime import datetime
 class TemperaturasDB():
     def __init__(self):
         self.arbol = ArbolAVL()
+       
         
         
 
-    def guardar_temperatura(self, temperatura, fecha):
+    def guardar_temperatura(self, fecha, temperatura):
         """guarda la medida de temperatura asociada a la fecha """
         aux = fecha.replace('/', '-')
         fecha = datetime.strptime(aux, "%d-%m-%Y").date()
