@@ -231,7 +231,6 @@ class iterador():
                     
         if salida == None:
             raise StopIteration
-        print("factor ",salida.factorEquilibrio)
         self._nodoinicio = self._nodoinicio.encontrarSucesor()
 
         return salida
@@ -246,39 +245,25 @@ def inorden(nodo):
        
 if __name__ == '__main__':
     a = ArbolAVL()
-    a.agregar(10, "c")
-    a.agregar(20,"b")
     
-    a.agregar(30, "d")
-    a.agregar(40, "e" )
-    a.agregar(40, "z" )
-
-    a.agregar(40, "g" )
-    a.agregar(40, "a" )
-    # a.agregar(40, "h" )
-
-
-    # a.agregar(40, "t" )
-
-    # a.agregar(40, "u" )
-
-    # a.inorden(a.raiz)
+    for i in range(1, 11):
+        a.agregar(i,i+5)
     
-    # a.agregar( 22, "14-07-00")
-    # a.agregar( 30, "01-02-00")
-    # a.agregar( 35, "24-04-00")
-    # a.agregar(12, "2017-02-28")
-    # a.agregar(25, "2017-04-20")
-    # a.guardar_temperatura(32, "2017-05-04")
-    # a.guardar_temperatura(40, "2017-02-22")
-    # a.guardar_temperatura(23, "2017-03-28")
-    # a.guardar_temperatura(12, "2017-05-07")
-    # a.guardar_temperatura(27, "2017-04-29")
-
-
-    it = iterador(a, "a")
+    arbol = ArbolAVL()
+    # aux = [15,10,20,2,12,19,14,21,18]
+    # for i in aux:
+    #     arbol.agregar(i, i*5)
+    
+    
+    # it = iterador(arbol, arbol.raiz.clave)
+    # for nodo in it:
+    #     print(nodo.clave)
+    it = iterador(a, a.raiz.clave)
     for nodo in it:
-        print(nodo)
+        print(nodo.clave)
+    
+    print("tamanio: ", a.__len__())
+ 
     
     
     

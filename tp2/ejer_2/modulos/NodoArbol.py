@@ -141,7 +141,7 @@ class NodoArbol:
         return actual    
     
     def empalmar(self):
-        if self.esHoja():
+        if self.esHoja:
             if self.esHijoIzquierdo():
                    self.padre.hijoIzquierdo = None
             else:
