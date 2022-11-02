@@ -63,12 +63,12 @@ class NodoArbol:
     def hijoDerecho(self,nueva_hoja):
         """ Setter de hijo derecho """
         self._hijoDerecho=nueva_hoja
-    
+    @property
     def esHijoIzquierdo(self):
-        return self.padre and self.padre.hijoIzquierdo == self
-    
+        return self._padre and self._padre._hijoIzquierdo == self
+    @property
     def esHijoDerecho(self):
-        return self.padre and self.padre.hijoDerecho == self
+        return self._padre and self._padre._hijoDerecho == self
     
     #--------------------------------------------------------------------------
     """
@@ -102,11 +102,11 @@ class NodoArbol:
     
     @property
     def tieneHijoDerecho(self):
-        return self.hijoDerecho != None
+        return self.hijoDerecho 
     
     @property
     def tieneHijoIzquierdo(self):
-        return self.hijoIzquierdo != None
+        return self.hijoIzquierdo
     
     
     
@@ -115,9 +115,9 @@ class NodoArbol:
         self.cargaUtil = valor
         self.hijoIzquierdo = hizq
         self.hijoDerecho = hder
-        if self.tieneHijoIzquierdo():
+        if self.tieneHijoIzquierdo:
             self.hijoIzquierdo.padre = self
-        if self.tieneHijoDerecho():
+        if self.tieneHijoDerecho:
             self.hijoDerecho.padre = self
             
     def encontrarSucesor(self):
@@ -126,7 +126,7 @@ class NodoArbol:
             suc = self.hijoDerecho.encontrarMin()
         else:
             if self.padre:
-                   if self.esHijoIzquierdo():
+                   if self.esHijoIzquierdo:
                        suc = self.padre
                    else:
                        self.padre.hijoDerecho = None
@@ -142,19 +142,19 @@ class NodoArbol:
     
     def empalmar(self):
         if self.esHoja:
-            if self.esHijoIzquierdo():
+            if self.esHijoIzquierdo:
                    self.padre.hijoIzquierdo = None
             else:
                    self.padre.hijoDerecho = None
-        elif self.tieneAlgunHijo():
-            if self.tieneHijoIzquierdo():
-                   if self.esHijoIzquierdo():
+        elif self.tieneHijos:
+            if self.tieneHijoIzquierdo:
+                   if self.esHijoIzquierdo:
                       self.padre.hijoIzquierdo = self.hijoIzquierdo
                    else:
                       self.padre.hijoDerecho = self.hijoIzquierdo
                    self.hijoIzquierdo.padre = self.padre
             else:
-                   if self.esHijoIzquierdo():
+                   if self.esHijoIzquierdo:
                       self.padre.hijoIzquierdo = self.hijoDerecho
                    else:
                       self.padre.hijoDerecho = self.hijoDerecho
@@ -168,7 +168,7 @@ class NodoArbol:
 
     def __iter__(self):
        if self:
-          if self.tieneHijoIzquierdo():
+          if self.tieneHijoIzquierdo:
                  for elem in self.hijoIzquierdo:
                     yield elem
           yield self.clave

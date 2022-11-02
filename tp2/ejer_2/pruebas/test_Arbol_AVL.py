@@ -84,15 +84,28 @@ class Test_Arbol_AVL(unittest.TestCase):
         
         # #Caso 2: El nodo eliminado provoca un desbalance
         aux2 = self.generar_arbol(6)
+        print("ANTES DE ELIMINAR\n")
+        it = iterador(aux2,10)
+
+        for nodo in it:
+            if nodo.clave == 20:
+                print("hijo izquierdo",nodo.hijoIzquierdo)
+                print("Hijo derecho",nodo.hijoDerecho)
+                print("Padre: ",nodo.padre)
+                
         aux2.eliminar(21) 
-        # # Este eliminar provocara un desbalanze en el nodo con clave 20
-        # # obligando a hacer una rotacion hacia la derecha 
+        print("\nDESPUES DE ELIMINAR\n")
+        
+        # Este eliminar(21) provocara un desbalanze en el nodo con clave 20
+        # obligando a hacer una rotacion hacia la derecha 
+        
+        
         it = iterador(aux2,10)
         for nodo in it:
-            # print(nodo)
             if nodo.clave == 20:
-                print(nodo.hijoIzquierdo)
-                print(nodo.padre)
+                print("hijo izquierdo",nodo.hijoIzquierdo)
+                print("Hijo derecho",nodo.hijoDerecho)
+                print("Padre: ",nodo.padre)
         
         # print("tam ",aux2.tamano )                
             

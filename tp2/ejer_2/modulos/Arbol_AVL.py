@@ -13,8 +13,14 @@ class ArbolAVL():
         self.tamano = 0
         self.factorEquilibrio = 0
         
-                
-        
+    @property            
+    def tamano(self):
+        return self._tamano
+    
+    @tamano.setter
+    def tamano(self, value):
+        self._tamano = value
+    
     def agregar(self,clave,valor):
         if self.raiz:
             self._agregar(clave,valor,self.raiz)
@@ -48,9 +54,9 @@ class ArbolAVL():
             self.reequilibrar(nodo)
             return
         if nodo.padre != None:
-            if nodo.esHijoIzquierdo():
+            if nodo.esHijoIzquierdo:
                     nodo.padre.factorEquilibrio += 1
-            elif nodo.esHijoDerecho():
+            elif nodo.esHijoDerecho:
                     nodo.padre.factorEquilibrio -= 1
     
             if nodo.padre.factorEquilibrio != 0:
@@ -103,7 +109,7 @@ class ArbolAVL():
         if rotRaiz.esRaiz:
             self.raiz = nuevaRaiz
         else:
-            if rotRaiz.esHijoIzquierdo():
+            if rotRaiz.esHijoIzquierdo:
                     rotRaiz.padre.hijoIzquierdo = nuevaRaiz
             else:
                 rotRaiz.padre.hijoDerecho = nuevaRaiz
@@ -158,6 +164,7 @@ class ArbolAVL():
             suc.empalmar()
             nodoActual.clave = suc.clave
             nodoActual.cargaUtil = suc.cargaUtil
+            # self.reequilibrar(nodoActual)
     
         else: # este nodo tiene un (1) hijo
             if nodoActual.tieneHijoIzquierdo:
@@ -172,6 +179,8 @@ class ArbolAVL():
                                        nodoActual.hijoIzquierdo.cargaUtil,
                                        nodoActual.hijoIzquierdo.hijoIzquierdo,
                                        nodoActual.hijoIzquierdo.hijoDerecho)
+                # self.reequilibrar(nodoActual)
+
             else:
                 if nodoActual.esHijoIzquierdo:
                     nodoActual.hijoDerecho.padre = nodoActual.padre
@@ -184,6 +193,9 @@ class ArbolAVL():
                                        nodoActual.hijoDerecho.cargaUtil,
                                        nodoActual.hijoDerecho.hijoIzquierdo,
                                        nodoActual.hijoDerecho.hijoDerecho)
+                # self.reequilibrar(nodoActual)
+
+            
     
     def __delitem__(self,clave):
        self.eliminar(clave)
@@ -216,53 +228,81 @@ class ArbolAVL():
             inorden(nodo.hijoDerecho)
     
 class iterador():
-    def __init__(self,arbol,claveInicial):
+    def __init__(self,arbol,claveInicial= None,claveFin = None):
         
+        self.parar = False
         # self._arbol = arbol
-        self._nodoinicio =arbol._obtener(claveInicial, arbol.raiz)
+        if claveFin != None:
+            self.nodoFin = arbol._obtener(claveFin,arbol.raiz)
+        else:
+            self.nodoFin = arbol.raiz
+            
+            while self.nodoFin!= None:
+                self.nodoFin = self.nodoFin.encontrarSucesor()
         
+        if claveInicial == None:
+            self.nodoinicio = arbol.raiz
+            self.nodoinicio = self.nodoinicio.encontrarMin()
+        else:
+            self.nodoinicio =arbol._obtener(claveInicial, arbol.raiz)
+
+
         
     def __iter__(self):
         return self
     
     def __next__(self):
-        salida = self._nodoinicio 
-        # self._nodoinicio = salida
+        salida = self.nodoinicio 
                     
-        if salida == None:
+        if salida == None or self.parar == True :
             raise StopIteration
-        self._nodoinicio = self._nodoinicio.encontrarSucesor()
-
+        
+        if self.nodoinicio == self.nodoFin:
+            self.parar = True
+            
+        self.nodoinicio = self.nodoinicio.encontrarSucesor()
+    
         return salida
+
+        
 #-----------------------------------------------------------------------
 def inorden(nodo):
   if nodo != None:
       inorden(nodo.hijoIzquierdo)
-      print(nodo)
+      print (nodo)
       inorden(nodo.hijoDerecho)
-   
+      
+
         
        
 if __name__ == '__main__':
     a = ArbolAVL()
     
-    for i in range(1, 11):
+    for i in range(1, 40):
         a.agregar(i,i+5)
     
-    arbol = ArbolAVL()
+    
+    print("-------------------------")
+    it = iterador(a,10,11)
+    for nodo in it:
+        print(nodo)
+    print("-------------------------")
+    
+    
+    
+    # arbol = ArbolAVL()
     # aux = [15,10,20,2,12,19,14,21,18]
     # for i in aux:
     #     arbol.agregar(i, i*5)
+    # print("raiz del arbol:", a.raiz)
+    # print("hijo izquierdo:", a.raiz.hijoIzquierdo)
+    # print("hijo Derecho: ", a.raiz.hijoDerecho)
+    # a.inorden(a.raiz)
+
+    # # for nodo in it:
+    # #     print(nodo.clave)
     
-    
-    # it = iterador(arbol, arbol.raiz.clave)
-    # for nodo in it:
-    #     print(nodo.clave)
-    it = iterador(a, a.raiz.clave)
-    for nodo in it:
-        print(nodo.clave)
-    
-    print("tamanio: ", a.__len__())
+    # print("tamanio: ", a.__len__())
  
     
     
