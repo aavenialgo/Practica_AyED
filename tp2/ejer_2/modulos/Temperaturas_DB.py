@@ -78,7 +78,7 @@ class TemperaturasDB():
         """ recibe una fecha y elimina del árbol la medición correspondiente a esa 
             fecha. """
         fecha = self._convertir_fecha(fecha)
-        self.arbol.eliminar(fecha)
+        self.arbol.eliminarCargaUtil(fecha)
     
     
     def mostrar_temperaturas(self, fecha1, fecha2):
@@ -92,8 +92,11 @@ class TemperaturasDB():
         it = iterador(self.arbol,fecha1,fecha2)
         
         for valor in it:
-            print(f"{valor}"+" °C")
-    
+            if valor.cargaUtil == None:
+                print(valor.clave, "Sin datos de temperatura!")
+            else:
+                print(f"{valor}"+" °C")
+
     
     def mostrar_cantidad_muestras(self):
         """ muestra por consola la cantidad de muestras de la BD"""
@@ -134,8 +137,10 @@ if __name__ == "__main__":
     print("\n------temp_extremos_rango-------")
     maximo,minimo= a.temp_extremos_rango("1/02/2000", "17/02/2028")
     print(maximo,minimo)
-    
-          
+    #--------------------------------------------------------------------
+    print("\n----Eliminar Temperatura en una fecha-----")
+    a.borrar_temperatura("14/07/2000")
+    a.mostrar_temperaturas("1/02/2000", "17/02/2028")
     
     
     

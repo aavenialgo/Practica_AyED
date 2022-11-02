@@ -42,7 +42,12 @@ class ArbolAVL():
                     nodoActual.hijoDerecho = NodoArbol(clave,valor,padre=nodoActual)
                     self.actualizarEquilibrio(nodoActual.hijoDerecho)
             
-   
+    def eliminarCargaUtil(self,clave):
+        """Elimina la carga util del nodo """
+        self[clave]= None
+        # aux = self._obtener(clave,self.raiz)
+        
+        
     
     def actualizarEquilibrio(self,nodo):
         """El metodo compruema primero si el nodo actual requiere un reequilibrio
@@ -278,18 +283,23 @@ def inorden(nodo):
 if __name__ == '__main__':
     a = ArbolAVL()
     
-    for i in range(1, 40):
-        a.agregar(i,i+5)
+    for i in range(1, 11):
+        a.agregar(i*2,i*5)
     
     
     print("-------------------------")
-    it = iterador(a,10,11)
+    it = iterador(a)
     for nodo in it:
         print(nodo)
     print("-------------------------")
     
+    a.eliminarCargaUtil(4)
     
-    
+    print("-------------------------")
+    it = iterador(a)
+    for nodo in it:
+        print(nodo)
+    print("-------------------------")
     # arbol = ArbolAVL()
     # aux = [15,10,20,2,12,19,14,21,18]
     # for i in aux:
