@@ -11,10 +11,10 @@ Sala de emergencias
 
 import time
 import datetime
-from paciente import Paciente
+from modulos.paciente import Paciente
 # import modulos.paciente as pac
 import random
-from monticulo_binario import MonticuloBinario
+from modulos.monticulo_binario import MonticuloBinario
 
 n = 20  # cantidad de ciclos de simulación
 

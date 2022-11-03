@@ -15,6 +15,7 @@ class ArbolAVL():
         
     @property            
     def tamano(self):
+        """ Devuelve el la cantidad de nodos del arbol """
         return self._tamano
     
     @tamano.setter
@@ -22,6 +23,7 @@ class ArbolAVL():
         self._tamano = value
     
     def agregar(self,clave,valor):
+        """ Agrega un nodo al arbol """
         if self.raiz:
             self._agregar(clave,valor,self.raiz)
         else:
@@ -29,6 +31,8 @@ class ArbolAVL():
         self.tamano = self.tamano + 1
         
     def _agregar(self,clave,valor,nodoActual):
+        """ Metodo auxiliar y recursivo para encontrar la posicion en donde 
+        insertar el nodo """
         if clave < nodoActual.clave:
             if nodoActual.tieneHijoIzquierdo:
                     self._agregar(clave,valor,nodoActual.hijoIzquierdo)
@@ -71,6 +75,7 @@ class ArbolAVL():
 
     
     def reequilibrar(self,nodo):
+        """Aqui se realiza las rotaciones correspondientes debido al desequilibrio"""
         if nodo.factorEquilibrio < 0:
                if nodo.hijoDerecho.factorEquilibrio > 0:
                   self.rotarDerecha(nodo.hijoDerecho)
@@ -85,17 +90,18 @@ class ArbolAVL():
                   self.rotarDerecha(nodo)
     
     def obtener(self,clave):
-      if self.raiz:
-          res = self._obtener(clave,self.raiz)
-          if res:
-                 return res.cargaUtil
-          else:
-                 return None
-      else:
-          return None
+        """ Devuelve la carga util del nodo"""
+        if self.raiz:
+            res = self._obtener(clave,self.raiz)
+            if res:
+                   return res.cargaUtil
+            else:
+                   return None
+        else:
+            return None
     
     def _obtener(self,clave,nodoActual):
-        
+        """ Devuelve el nodo, en funcion a la clave que se le pasa """
         if not nodoActual:
             return None
         elif nodoActual.clave == clave:
@@ -107,6 +113,7 @@ class ArbolAVL():
 
 #--------------------------- ROTACIONES --------------------------------------------
     def rotarIzquierda(self,rotRaiz):
+        """ Realiza una rotacion simple hacia la izquierda """
         nuevaRaiz = rotRaiz.hijoDerecho
         
         rotRaiz.hijoDerecho = nuevaRaiz.hijoIzquierdo
@@ -127,6 +134,7 @@ class ArbolAVL():
         
         
     def rotarDerecha(self, rotRaiz):
+        """ Realiza una rotacion simple hacia la derecha """
         nuevaRaiz = rotRaiz.hijoIzquierdo
         rotRaiz.hijoIzquierdo = nuevaRaiz.hijoDerecho
         if rotRaiz.padre is None:
@@ -147,6 +155,7 @@ class ArbolAVL():
     
        
     def eliminar(self,clave):
+        """elimina un nodo del arbol """
         if self.tamano > 1:
            nodoAEliminar = self._obtener(clave,self.raiz)
            if nodoAEliminar:
@@ -230,9 +239,9 @@ class ArbolAVL():
         
     def inorden(self,nodo):
         if nodo != None:
-            inorden(nodo.hijoIzquierdo)
+            self.inorden(nodo.hijoIzquierdo)
             print(nodo)
-            inorden(nodo.hijoDerecho)
+            self.inorden(nodo.hijoDerecho)
     
 class iterador():
     def __init__(self,arbol,claveInicial= None,claveFin = None):
@@ -271,38 +280,8 @@ class iterador():
     
         return salida
 
-        
-#-----------------------------------------------------------------------
-def inorden(nodo):
-  if nodo != None:
-      inorden(nodo.hijoIzquierdo)
-      print (nodo)
-      inorden(nodo.hijoDerecho)
-      
 
         
-       
-if __name__ == '__main__':
-    a = ArbolAVL()
-    
-    for i in range(1, 11):
-        a.agregar(i*2,i*5)
-    
-    
-    print("-------------------------")
-    it = iterador(a)
-    for nodo in it:
-        print(nodo)
-    print("-------------------------")
-    
-    a.eliminarCargaUtil(4)
-    
-    print("-------------------------")
-    it = iterador(a)
-    for nodo in it:
-        print(nodo)
-    print("-------------------------")
-
     
     
     

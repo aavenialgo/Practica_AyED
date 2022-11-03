@@ -6,7 +6,6 @@ Created on Sun Oct 23 16:44:14 2022
 """
 import unittest
 
-# from modulos.NodoArbol import NodoArbol 
 from modulos.Arbol_AVL import ArbolAVL
 from modulos.Arbol_AVL import iterador
 
