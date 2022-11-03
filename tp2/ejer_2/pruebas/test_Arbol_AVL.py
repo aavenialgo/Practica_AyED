@@ -70,51 +70,6 @@ class Test_Arbol_AVL(unittest.TestCase):
         self.assertEqual(aux1[1], arbolPrueba.obtener(20))
         self.assertEqual(aux1[2], arbolPrueba.obtener(30))
     
-    def test_eliminar(self):
-        """ Prueba para eliminar un nodo del arbol """
-        #Caso 1: Elimina y no provoca un desbalance en el arbol
-        aux1 = self.generar_arbol(6)
-        tamanio_aux1 = aux1.tamano
-        aux1.eliminar(18)
-        nuevoTamanio = aux1.tamano
-    
-        original = self.generar_arbol(6)
-        self.assertNotEqual(aux1,original)
-        self.assertNotEqual(tamanio_aux1, nuevoTamanio )
-        
-        # #Caso 2: El nodo eliminado provoca un desbalance
-        aux2 = self.generar_arbol(6)
-        print("ANTES DE ELIMINAR\n")
-        it = iterador(aux2,10)
-
-        for nodo in it:
-            if nodo.clave == 20:
-                print("hijo izquierdo",nodo.hijoIzquierdo)
-                print("Hijo derecho",nodo.hijoDerecho)
-                print("Padre: ",nodo.padre)
-                
-        aux2.eliminar(21) 
-        print("\nDESPUES DE ELIMINAR\n")
-        
-        # Este eliminar(21) provocara un desbalanze en el nodo con clave 20
-        # obligando a hacer una rotacion hacia la derecha 
-        
-        
-        it = iterador(aux2,10)
-        for nodo in it:
-            if nodo.clave == 20:
-                print("hijo izquierdo",nodo.hijoIzquierdo)
-                print("Hijo derecho",nodo.hijoDerecho)
-                print("Padre: ",nodo.padre)
-        
-        # print("tam ",aux2.tamano )                
-            
-        # print(aux3)
-        # print(aux3.hijoDerecho)
-        # print("Tamanio ",aux3.__len__())
-        # # self.assertEqual(19, aux3.clave)
-        # self.assertEqual(18, aux3.hijoIzquierdo.clave)
-        # self.assertEqual(20, aux3.hijoDerecho.clave)
         
 
         

@@ -37,7 +37,12 @@ print(maximo,minimo)
 #--------------------------------------------------------------------
 print("\n----Eliminar Temperatura en una fecha-----")
 a.borrar_temperatura("14/07/2000")
+# print("no hay registro ",a.devolver_temperatura("14/07/2000"))
 a.mostrar_temperaturas("1/02/2000", "17/02/2028")
+
+print("----Devolver Temperatura----")
+print(a.devolver_temperatura("1/02/2000"))
+
 
 
 

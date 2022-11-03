@@ -44,8 +44,10 @@ class ArbolAVL():
             
     def eliminarCargaUtil(self,clave):
         """Elimina la carga util del nodo """
-        self[clave]= None
-        # aux = self._obtener(clave,self.raiz)
+        it = iterador(self)
+        for i in it:
+            if i.clave ==clave:
+                i.cargaUtil =None
         
         
     
@@ -213,7 +215,7 @@ class ArbolAVL():
         return self.tamano
     
     def __setitem__(self,c,v):
-       self.agregar(c,v)
+        self.agregar(c,v)
        
     def __getitem__(self,clave):
        return self.obtener(clave)
@@ -300,20 +302,7 @@ if __name__ == '__main__':
     for nodo in it:
         print(nodo)
     print("-------------------------")
-    # arbol = ArbolAVL()
-    # aux = [15,10,20,2,12,19,14,21,18]
-    # for i in aux:
-    #     arbol.agregar(i, i*5)
-    # print("raiz del arbol:", a.raiz)
-    # print("hijo izquierdo:", a.raiz.hijoIzquierdo)
-    # print("hijo Derecho: ", a.raiz.hijoDerecho)
-    # a.inorden(a.raiz)
 
-    # # for nodo in it:
-    # #     print(nodo.clave)
-    
-    # print("tamanio: ", a.__len__())
- 
     
     
     
