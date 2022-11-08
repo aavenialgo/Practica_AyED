@@ -68,3 +68,6 @@ if __name__== '__main__':
     for v in g:
         for w in v.conexiones:
             print("( %s , %s )" % (v.Id, w.Id))
+            
+            
+    

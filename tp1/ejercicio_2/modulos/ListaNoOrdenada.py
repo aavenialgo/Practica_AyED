@@ -5,7 +5,7 @@ Created on Thu Sep  1 11:11:27 2022
 @author: Julian Traversaro
 """
 
-from ClaseNodo import Nodo
+from modulos.ClaseNodo import Nodo
 
 class ListaNoOrdenada:
 
@@ -207,6 +207,7 @@ class ListaNoOrdenada:
                  temp.anterior=None
         except AttributeError:
             print('No se encontro item')
+            return str(0)
             
         
         return item_eliminado
@@ -226,6 +227,7 @@ class ListaNoOrdenada:
         while nodo:
             yield nodo
             nodo=nodo.siguiente
+        
 
     # def __setitem__(self,posicion, item):
     #         self.intesertar(posicion, item)
@@ -237,9 +239,15 @@ class ListaNoOrdenada:
         lista =[nodo for nodo in self ]
         return str(lista)
     
-    def __rerpr__(self):
+    # def __next__(self):
         
+    #     if self == None:
+    #         raise StopIteration 
+    
+    
+    def __rerpr__(self):
         return str(self)
+    
     def invertir(self):
         pass
             

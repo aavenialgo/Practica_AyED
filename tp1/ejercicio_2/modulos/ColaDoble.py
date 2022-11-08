@@ -8,7 +8,7 @@ Created on Sun Sep 18 11:35:25 2022
 
 
 import random
-from ListaNoOrdenada import ListaNoOrdenada
+from modulos.ListaNoOrdenada import ListaNoOrdenada
 class ColaDoble(ListaNoOrdenada):
        
     def __init__(self):
@@ -21,6 +21,8 @@ class ColaDoble(ListaNoOrdenada):
 
         '''
         super().__init__()
+        
+        
     
     @property
     def tamanio(self):

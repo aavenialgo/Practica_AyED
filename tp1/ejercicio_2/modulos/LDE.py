@@ -5,7 +5,6 @@ Created on Thu Sep  1 11:02:26 2022
 @author: Venialgo Andres
 """
 # from nodo import Nodo
-from time import sleep
 class ListaDobleEnlazada:
     def __init__ (self):
         # self.__nodo = Nodo(dato_inicial)

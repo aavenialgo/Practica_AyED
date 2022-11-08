@@ -5,20 +5,21 @@ Created on Sun Sep 11 19:00:13 2022
 @author: Julian Traversaro
 """
 
-from ColaDoble import ColaDoble
+from modulos.ColaDoble import ColaDoble
+import random 
+
+from modulos.ColaDoble import ColaDoble
 import random 
 class JuegoGuerra:
     
-    def __init__(self, valor_semilla):
+    def __init__(self, random_seed):
         '''
         
-
         Returns
         Inicializo el juego, creo el maso de cartas de poquer "baraja", como una lista de python 
         por facilidad, luego la "barajo "
         -------
         None.
-
         '''
         self.maxima_cantidad_turnos=10000
         self.jugador_1=ColaDoble()
@@ -26,18 +27,16 @@ class JuegoGuerra:
         self.n_jugadores=2
         self.valores = ['2','3','4','5','6','7','8','9','10','J','Q','K','A']
         self.palos = ['♠', '♥', '♦', '♣']
-        self.semilla=valor_semilla
+        self.semilla=random_seed
         self.barajar()
-    
+        self.turnos_jugados= 1
     def barajar(self):
         '''
         
-
         Returns
         Barajo las cartas creando todos los palos de la baraja 
         -------
         None.
-
         '''
         self.baraja=[]
         for x in self.valores:
@@ -50,43 +49,39 @@ class JuegoGuerra:
     def turnos_jugados(self):
         '''
          interpretacion del requerimiento de  testing    
-
         Returns
         -------
         None.
-
         '''
-        pass
+        return self._turnos_jugados
+    @turnos_jugados.setter
+    def turnos_jugados(self,value):
+        self._turnos_jugados = value
     
     @property
     def ganador(self):
         '''
         
-
         Returns
         interpretacion de requerimiento de testing 
         -------
         None.
-
         '''
         return self.jugador_ganador
     @property
     def empate(self):
         '''
         
-
         Returns
         requerimiento interpretado del testing provisto 
         -------
         None.
-
         '''
         return self._empate
     
     def iniciar_juego(self):
         '''
         
-
         Parameters
         iniciar_juego, inicia el juego de la guerra con un numero de partidas establecido
         y por defecto son 10 mil 
@@ -99,7 +94,6 @@ class JuegoGuerra:
         Returns
         -------
         None.
-
         '''
         
         self._empate=False
@@ -130,7 +124,10 @@ class JuegoGuerra:
             
             
         self.n_cartas_jugador_1=len(self.jugador_1)
+        # self.n_cartas_jugador_1 = self.jugador_1.tamanio
         self.n_cartas_jugador_2=len(self.jugador_2)
+        # self.n_cartas_jugador_2 = self.jugador_2.tamanio
+
         print(self.jugador_1)
         
         print(self.jugador_2)
@@ -143,7 +140,8 @@ class JuegoGuerra:
         
         while i <self.maxima_cantidad_turnos:
             if self.n_cartas_jugador_1>=0 and self.n_cartas_jugador_2>=0:
-                self.show(i+1,self.jugador_1.removerFrente(), self.jugador_2.removerFrente(), estado='en juego') 
+                self.show(i+1,self.jugador_1.removerFrente(), self.jugador_2.removerFrente(), estado='en juego')
+                self.turnos_jugados += 1
             i=i+1
             
         if i<= self.maxima_cantidad_turnos and self.n_cartas_jugador_1 < self.n_cartas_jugador_2:
@@ -174,7 +172,6 @@ class JuegoGuerra:
     def show(self,turno,carta_jugador_1, carta_jugador_2, estado= 'en juego'):
         '''
         
-
         Parameters
         Metodo de clase en el que se implemta interfaz grafica transparente al usuario
         se reciben las cartas 'boca arriba del turno' y dependiendo su valor se toman desiciones
@@ -190,11 +187,9 @@ class JuegoGuerra:
             DESCRIPTION.
         estado : TYPE, optional
             DESCRIPTION. The default is 'en juego'.
-
         Returns
         -------
         None.
-
         '''   
 
         
@@ -362,9 +357,8 @@ class JuegoGuerra:
                     self.n_cartas_jugador_1=self.n_cartas_jugador_1+18
                 
 if __name__=='__main__':
-    '''jugador 1 gana la partida en el turno 137'''
-    guerra=JuegoGuerra(valor_semilla=167)
+    '''jugador 1 gana la partida'''
+    guerra=JuegoGuerra(59)
     guerra.iniciar_juego()
-    
     
     
