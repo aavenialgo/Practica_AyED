@@ -1,158 +1,192 @@
 # -*- coding: utf-8 -*-
 """
-Created on Wed Sep 21 21:35:10 2022
+Created on Mon Nov 1 14:45:46 2022
 
-@author: Julian Traversaro
+@author: Andres
 """
-#%% variables globales 
+from os import remove
+f1 = "particion_1.txt"
+f2 = "particion_2.txt"
+def auxiliar_particionar_archivo(archivo_original):
+    """ Particiona un archivo en dos archivos auxiliares armando lineas con
+    numeros ordenados de menor a mayor. La alternancia entre un archivo u otro
+    se produce cuando se corta la secuencia "de menor a mayor" leido en el archivo original
 
-#%%
-"""
-29/9/22 metodo dividir, divide correctamente 
-"""        
-def MezclaNatural(nombre):
-    f1='particion_1.txt'
-    f2='particion_2.txt'
+    Args:
+        archivo_original (file)
+    Returns:
+        ordenado (bool)
+            valor booleano que indica que como no se realizó ninguna 
+            alternancia entre los archivos auxiliar, entonces , el archivo original 
+            se encontraba ordenado
+    """
     
-    lectura=True
-    n_lineas=0
-    n_lineas_particion=0
-    bandera_f1=True
-    bandera_f2=True
-
-    n_sublistas_f1=0
-    n_sublistas_f2=0
-    # mido el tamaño del archivo, no es la forma mas pythonista pero hay 
-    #otras logicas mas importantes que resolver
-
-    with open(nombre, 'r') as archivo_completo:
-        for linea in archivo_completo:
-            n_lineas+=1
+    ordenado = True
+    archivo_aux_seleccionado = f1
     
-    with open(nombre, 'r') as archivo_completo, open(f1, 'w') as particion1, open(f2,'w') as particion2:          
-        aux=archivo_completo.readline()
-        particion1.write(aux)  
-        while n_lineas_particion <=n_lineas:
-                n_lineas_particion+=1
-                aux2=archivo_completo.readline()
-                if aux <= aux2:
-                    #estan ordenados
-                    if bandera_f1:
-                        particion1.write(aux2)
-                        
-                        aux=aux2
-                    else:
-                        particion2.write(aux2)
-                        
-                        aux=aux2
-                elif aux >aux2:
-                    
-                    if bandera_f2:
-                        particion2.write(aux2)
-                        
-                        aux=aux2
-                        bandera_f1=False
-                        bandera_f2=False
-                        
-                    elif bandera_f2==False:
-                        particion1.write(aux2)
-                        
-                        aux=aux2
-                        bandera_f1=True
-                        bandera_f2=True
-                        
-    
-                 
-                    
-                    
-    #%%
-    datos_mesclados='datos_mezclados.txt'
-    n_sublistas_f1=0
-    n_sublistas_f2=0
-    lectura_mezcla=True
-    f1_n_lineas=0
-    f2_n_lineas=0
-    f1_contador_lineas=0
-    f2_contador_lineas=0
-    auxiliar_f2=0
-    auxiliar_f1=0
-    
-    
-    mayor=0
-    bandera_mayor=''
-    bandera_menor=''
-    volver_f2=False
-    volver_f1=False
-    
-    
-    with open(f1, 'r') as archivo_completo:
-        for linea in archivo_completo:
-            f1_n_lineas+=1
-            
-    with open(f2, 'r') as archivo_completo:
-        for linea in archivo_completo:
-            f2_n_lineas+=1
-    
-    with open(datos_mesclados, 'w') as archivo_mezclado, open(f1, 'r') as particion1, open(f2,'r') as particion2:    
-        dato_f1=particion1.readline()
-        dato_f2=particion2.readline()
-        if dato_f1 <=dato_f2:
-              n_sublistas_f1+=1
-              mayor =dato_f2
-              archivo_mezclado.write(dato_f1)
-              
-              
-              bandera_mayor ='f2'
-        else:
-              n_sublistas_f2+=1
-              mayor=dato_f1
-              archivo_mezclado.write(dato_f2)
-              
-              
-              bandera_mayor='f1'
+    with  open(f1,'a') as archivo_auxiliar_1:
+        with  open(f2,'a') as archivo_auxiliar_2:
+   
         
-        while f1_contador_lineas <=f1_n_lineas and f2_contador_lineas <=f2_n_lineas:
-            f1_contador_lineas=f1_contador_lineas+1
-            f2_contador_lineas=f2_contador_lineas+1
-            
-            if bandera_mayor =='f1':
-               if volver_f1:
-                    mayor=auxiliar_f1
-                    volver_f1=False
+            actual = archivo_original.readline()
+            siguiente = archivo_original.readline()    
+    
+            if actual != "" and siguiente != "":
+                    while actual != "":
+                        
+                        if archivo_aux_seleccionado == f1:
+                            archivo_auxiliar_1.write(actual)
+                       
+                        if archivo_aux_seleccionado == f2:
+                            archivo_auxiliar_2.write(actual)
                 
-               siguiente=particion1.readline()
-               if siguiente >mayor:
-                   archivo_mezclado.write(mayor)
-                   
-                   mayor=siguiente
-               elif siguiente <=mayor:
-                   volver_f1=True
-                   auxiliar_f1=siguiente
-               mayor=auxiliar_f1
-               bandera_mayor='f2'
+            
+                        if actual > siguiente and siguiente != "":
+                            archivo_aux_seleccionado = auxiliar_intercambiar_archivo_selecionado(archivo_aux_seleccionado)
+                            ordenado = False
+                
+                        actual = siguiente
+            
+                        if actual != "":
+                            siguiente = archivo_original.readline()
+            
+    return ordenado
+     #else posible excep  
+        
+def auxiliar_fusionar_archivos(archivo_original):
+    """ Fusiona dos archivos auxiliares reescribiendo el archivo original.
+    Los datos en este se colocan comparando cada dato de una secuencia ordenada del
+    archivo_auxiliar_1  y archivo_auxiliar_2 hasta que no queden datos en ninguno.
+    Args:
+        archivo_original (file)
+    
+    """
+    f1 = "particion_1.txt"
+    f2= "particion_2.txt"
+    with  open(f1,'r') as archivo_auxiliar_1:
+        with  open(f2,'r') as archivo_auxiliar_2:
+            
+            dato_actual_en_1 = archivo_auxiliar_1.readline()
+            dato_siguiente_en_1 = archivo_auxiliar_1.readline()
+            
+            dato_actual_en_2 = archivo_auxiliar_2.readline()
+            dato_siguiente_en_2 = archivo_auxiliar_2.readline()
+            
+            if dato_actual_en_1 != "" and dato_actual_en_2 != "":
+
+                while dato_actual_en_1 != "" and dato_actual_en_2 != "":
+                    
+                    if dato_actual_en_1 < dato_actual_en_2:
+                        archivo_original.write( dato_actual_en_1 )
+                        
+                        if dato_siguiente_en_1 < dato_actual_en_1 or dato_siguiente_en_1 == "":
+                            while dato_siguiente_en_2 != "" and dato_actual_en_2 < dato_siguiente_en_2:
+                                archivo_original.write( dato_actual_en_2)
+                                dato_actual_en_2 = dato_siguiente_en_2
+                                dato_siguiente_en_2 = archivo_auxiliar_2.readline()
+                                
+                            archivo_original.write( dato_actual_en_2)
+                            dato_actual_en_2 = dato_siguiente_en_2
+                            if dato_actual_en_2 != "":
+                               dato_siguiente_en_2 = archivo_auxiliar_2.readline()                       
+                                
+                        dato_actual_en_1 = dato_siguiente_en_1
+                        if dato_actual_en_1 != "":
+                            dato_siguiente_en_1 = archivo_auxiliar_1.readline()
+                        
+
+                    if dato_actual_en_2 < dato_actual_en_1:
+                        archivo_original.write( dato_actual_en_2 )
+                        
+                        if dato_siguiente_en_2 < dato_actual_en_2 or dato_siguiente_en_2 == "":
+                            while dato_siguiente_en_1 != "" and dato_actual_en_1 < dato_siguiente_en_1:
+                                archivo_original.write( dato_actual_en_1)
+                                dato_actual_en_1 = dato_siguiente_en_1
+                                dato_siguiente_en_1 = archivo_auxiliar_1.readline()
+
+                            archivo_original.write( dato_actual_en_1)
+                            dato_actual_en_1 = dato_siguiente_en_1
+                            if dato_actual_en_1 != "":
+                                dato_siguiente_en_1 = archivo_auxiliar_1.readline()
+                                
+                                
+                        dato_actual_en_2 = dato_siguiente_en_2
+                        if dato_actual_en_2 != "":
+                            dato_siguiente_en_2 = archivo_auxiliar_2.readline()
+                        
+                    if dato_actual_en_2 == dato_actual_en_1:
+                        archivo_original.write( dato_actual_en_1 )
+                        archivo_original.write( dato_actual_en_2 )
+                        
+                        dato_actual_en_1 = dato_siguiente_en_1
+                        if dato_actual_en_1 != "":
+                            dato_siguiente_en_1 = archivo_auxiliar_1.readline()
+                            
+                        dato_actual_en_2 = dato_siguiente_en_2
+                        if dato_actual_en_2 != "":
+                            dato_siguiente_en_2 = archivo_auxiliar_2.readline()
+                            
+            if dato_actual_en_1 == "":
+                 while dato_actual_en_2 != "" :
+                     archivo_original.write( dato_actual_en_2)
+                     dato_actual_en_2 = dato_siguiente_en_2
+                     if dato_actual_en_2 != "":
+                        dato_siguiente_en_2 = archivo_auxiliar_2.readline()
+                        
+            if dato_actual_en_2 == "":
+                 while dato_actual_en_1 != "" :
+                     archivo_original.write( dato_actual_en_1)
+                     dato_actual_en_1 = dato_siguiente_en_1
+                     if dato_actual_en_1 != "":
+                        dato_siguiente_en_1 = archivo_auxiliar_1.readline()  
+
+
+def auxiliar_intercambiar_archivo_selecionado(archivo_aux_seleccionado):
+    
+    """ Compara e intercambia el valor del string archivo_aux_seleccionado por las 
+    opciones  particion_1 y particion_2
+
+    Args:
+        archivo_aux_seleccionado (str)
+    Returns:
+        (str)
+    """
+    
+    
+    if archivo_aux_seleccionado == f1:
+        return f2
+        
+    if archivo_aux_seleccionado == f2:
+        return f1
+        
+def ordenar_externamente_mezcla_natural(ruta_y_nombre_del_archivo_original):
+    """ Ordena los datos de menor a mayor de un archivo en disco haciendo uso de
+    dos archivos auxiliares y el algoritmo de mezcla natural,
+    para ello divide y fusiona criteriosamente los archivos hasta que
+    se logre el orden de los datos
+
+    Args:
+        ruta_y_nombre_del_archivo_original (str)
+
+    """
+
+    esta_ordenado = False 
+    
+    while not esta_ordenado:
+        with  open(ruta_y_nombre_del_archivo_original,'r') as archivo_original:
+            esta_ordenado = auxiliar_particionar_archivo(archivo_original)
+
+        if not esta_ordenado:
+            with  open(ruta_y_nombre_del_archivo_original,'w') as archivo_original:
+                auxiliar_fusionar_archivos(archivo_original)
+        
+            
+            with  open(f1,'w') as archivo_aux_1:
+                pass
                
-            elif bandera_mayor=='f2':
-                if volver_f2:
-                    
-                    mayor=auxiliar_f2
-                    volver_f2=False
-                
-                siguiente=particion2.readline()
-                if siguiente> mayor:
-                    archivo_mezclado.write(mayor)
-                    mayor=siguiente
-                    
-                elif siguiente <=mayor:
-                    volver_f2=True
-                    auxiliar_f2=siguiente
-                    bandera_mayor='f1' 
-                    n_sublistas_f2+=1
-                
-if __name__=='__main__':
-    nombre='datos.txt'
-    MezclaNatural(nombre='datos.txt')
+            with  open(f2,'w') as archivo_aux_2:
+                pass  
             
-      
-     
-    
-        
+    # remove(f1) 
+    # remove(f2)  
+                

@@ -8,7 +8,7 @@ Created on Wed Sep 21 21:34:35 2022
 from random import randint
 
 def crear_archivo_de_datos(nombre):
-    f = 2**1
+    f = 2**5
     N = 5*f
     cifras = 3
     tam_bloque = f # 1 M de valores por bloque a escribir
@@ -37,4 +37,5 @@ def crear_archivo_de_datos(nombre):
             archivo.writelines(bloque)
             
     
-crear_archivo_de_datos('datos.txt')
+# crear_archivo_de_datos('datos.txt')
+crear_archivo_de_datos('datos1.txt')
